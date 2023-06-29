@@ -7,11 +7,24 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
+      backgroundImage:{
+
+        space : "url('./assets/fundo-space.jpg')"
+     },
+     colors : {
+        primary: "#053ba3",
+        textColors: {
+          100: "#969696",
+          200: "#fff"
+        },
+        backgroundColors: {
+          100: "#00000",
+          200: "#fff"
+        },
+      }
+    },
+    backgroundSize: {
+      fullSize : "100% 100%"
     },
   },
   plugins: [],
