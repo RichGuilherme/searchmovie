@@ -4,7 +4,7 @@ import { MovieBanner } from "./Moviebanner"
 export const Banner = () => {
     return (
         <>
-            <section className='relative w-full text-textColors-200'>
+            <section className='relative w-full text-textColors-200 font-sans'>
                 <MovieBanner />
             <div 
             className="w-full h-[250px] absolute left-0 bottom-0

@@ -1,14 +1,16 @@
 import Image from "next/image"
-import { SlideTrending } from "./SlideTrending"
+import { Carousel } from "../Carousel"
 import { SwitchTab } from "../SwitchTab"
 import { useState } from "react"
+import { useFetch } from "@/data/hooks/useFeatch"
 
 
 export const Trending = () => {
-    const [endpoint, setEndpoint] = useState<string>("hoje")
+    const [endpoint, setEndpoint] = useState<string>("day")
 
+    const { data, loading } = useFetch(`https://api.themoviedb.org/3/trending/all/${endpoint}`)
     const onTabChange = (tab:string):void => {
-        setEndpoint(tab === "Hoje" ? "Hoje" : "Semana")
+        setEndpoint(tab === "Hoje" ? "day" : "week")
     };
 
     return (
@@ -18,20 +20,20 @@ export const Trending = () => {
             <div
                 className="flex flex-row justify-between items-center w-full h-[12%] px-3">
                 <h1
-                    className="text-3xl font-medium flex items-center gap-2">
+                    className="text-3xl font-medium font-Nunito flex items-center gap-2 "> 
                     Tendências
                     <Image
                         src="/image/Ellipse.png"
                         alt="ellipse"
                         width={32}
-                        height={24.789}
+                        height={24}
                     ></Image>
                 </h1>
 
                 <SwitchTab typeData={["Hoje", "Semana"]} onTabChange={onTabChange} />
             </div>
 
-            <SlideTrending />
+            <Carousel data={data?.results} loading={loading}/>
 
         </section>
     )
