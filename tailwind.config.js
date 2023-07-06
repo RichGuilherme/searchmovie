@@ -7,6 +7,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+     fontFamily : {
+        OpenSans: ['Open Sans', 'sans-serif'],
+        Righteous: ['Righteous', "sans-serif"],
+        Nunito: ['Nunito', "sans-serif"],
+        
+     },
       backgroundImage:{
 
         space : "url('./assets/fundo-space.jpg')"
