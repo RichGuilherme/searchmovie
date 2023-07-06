@@ -1,5 +1,4 @@
 import axios from "axios";
-import { ApiResponse } from "../types/apiInformation";
 
 const Key = process.env.NEXT_PUBLIC_API_URL
 
