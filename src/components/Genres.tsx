@@ -1,4 +1,4 @@
-import { useFetch } from "@/data/hooks/useFeatch"
+import useFetch from "@/hooks/useFeatch"
 
 type GenresProps = { 
     movieId?: number 
