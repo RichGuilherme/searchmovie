@@ -8,9 +8,9 @@ export const TagInputSearchMovie = () => {
             </div>
             <input
                 type="text"
-                placeholder="Pesquisar por algum filme"
+                placeholder="Pesquisar Filmes ou Series"
                 className="bg-transparent border-0 outline-0 p-[1px_0_1px_36px] rounded-xl 
-                text-textColors-200 text-lg placeholder:text-textColors-200
+                text-textColors-200 text-lg placeholder:text-textColors-100
                 focus:outline-none focus:outline-1 focus:outline-white " />
         </div>
     )

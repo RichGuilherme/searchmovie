@@ -10,7 +10,7 @@ import { UserAtivited } from './UserAtivited'
 
 export const Header = () => {
     return (
-        <header className='flex items-center justify-between fixed w-full backdrop-blur-[4px] z-[100] px-[70px] py-3.5 bg-[rgba(16, 16, 16, 0.3)]'>
+        <header className='flex items-center justify-between fixed w-full backdrop-blur-[3px] z-40 px-[70px] py-3.5 bg-[rgba(0,_0,_0,_.25)] font-OpenSans'>
             <nav className='flex items-center gap-[38px]'>
                 <Logo />
 
