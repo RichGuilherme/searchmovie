@@ -2,7 +2,7 @@ import useFetch from "@/hooks/useFeatch"
 
 type GenresProps = { 
     movieId?: number 
-    movieTypeProps?: string
+    movieTypeProps?: string | null
 }
 
 export const Genres = ({ movieId, movieTypeProps }: GenresProps) => {

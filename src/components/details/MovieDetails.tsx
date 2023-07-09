@@ -11,12 +11,12 @@ import Image from "next/image"
 
 
 
-export const MovieDetails = ({ movieType, id }: DetailsProps) => {
+export const MovieDetails = ({ movieTypeParams, idParams }: DetailsProps) => {
     const [videoKey, setVideoKey] = useState<string>("")
     const [videoShow, setVideoShow] = useState<boolean>(false)
 
-    const { data, loading } = useFetch(`https://api.themoviedb.org/3/${movieType}/${id}`)
-    const { data: videoData, loading: videoLoading } = useFetch(`https://api.themoviedb.org/3/${movieType}/${id}/videos`)
+    const { data, loading } = useFetch(`https://api.themoviedb.org/3/${movieTypeParams}/${idParams}`)
+    const { data: videoData, loading: videoLoading } = useFetch(`https://api.themoviedb.org/3/${movieTypeParams}/${idParams}/videos`)
 
     const _videoKey = videoData?.results[0]?.key
 
@@ -45,11 +45,6 @@ export const MovieDetails = ({ movieType, id }: DetailsProps) => {
             </div>
 
             <div className="flex justify-center items-start gap-12 w-[76%] h-full mx-auto pt-[126px] ">
-
-                {/* <div
-                    style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${data?.poster_path})` }}
-                    className="max-w-[403px] min-w-[403px] w-2/4 min-h-[502px]  bg-no-repeat bg-[cover] rounded-xl">
-                </div> */}
 
                 <div className="max-w-[403px] min-w-[403px] w-2/4 h-[502px]">
                     {data?.poster_path && data?.poster_path !== "" && (
@@ -138,7 +133,7 @@ export const MovieDetails = ({ movieType, id }: DetailsProps) => {
                             </p>
                         </div>
 
-                        {movieType === "tv" && (
+                        {movieTypeParams === "tv" && (
                             <div className="flex justify-start gap-3  w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
                                 <p>
                                     Número de ep:

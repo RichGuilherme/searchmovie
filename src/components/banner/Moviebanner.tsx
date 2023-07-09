@@ -30,9 +30,8 @@ export const MovieBanner = () => {
                             }}
                             className="flex bg-[cover] blur-[30px] w-full h-[500px]" />
                     </div>
-
                     <div
-                        onClick={() => push(`/movie/${data?.results[numbRandom]?.id}`)}
+                        onClick={() => push(`/detalhes?movieType=movie&id=${data?.results[numbRandom]?.id}`)}
                         style={{
                             backgroundImage: `url(https://image.tmdb.org/t/p/original/${arrayUrlMovie})`
                         }}

@@ -92,7 +92,7 @@ export const Carousel = ({ data, loading, movieType }: dataResults) => {
                   </div>
 
                   <button
-                    onClick={() => push(`/${data.media_type === undefined ? movieType : data.media_type}/${data.id}`)}
+                    onClick={() => push(`/detalhes?movieType=${data.media_type === undefined ? movieType : data.media_type}&id=${data.id}`)}
                     className="w-[109px] h-7 bg-primary rounded-[30px] border-[none] float-right
                        text-textColors-200 text-[13px] text-center font-semibold cursor-pointer 
                         relative top-2"
