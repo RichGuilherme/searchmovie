@@ -8,6 +8,7 @@ import { DetailsProps } from "@/@types/apiInformation"
 import { HoursAndMinutes } from "@/utils/hoursAndMinutes"
 import { VideoPopUp } from "../VideoPopUp"
 import Image from "next/image"
+import { formatDate } from "@/utils/formatData"
 
 
 
@@ -21,14 +22,7 @@ export const MovieDetails = ({ movieTypeParams, idParams }: DetailsProps) => {
     const _videoKey = videoData?.results[0]?.key
 
     const arrayGenres = data?.genres
-
-    const releaseDate = data?.release_date === undefined ? data?.first_air_date : data?.release_date
-    const year = releaseDate?.slice(0, 4)
-
-    const voteAverage = data?.vote_average
-    const note = voteAverage?.toFixed(1)
-
-    
+ 
     return (
         <section>
             <div className="absolute w-full h-screen -z-30">
@@ -41,7 +35,7 @@ export const MovieDetails = ({ movieTypeParams, idParams }: DetailsProps) => {
                         className="w-full h-full absolute top-0 bg-no-repeat bg-[cover] opacity-10 " >
                     </div>
                 )}
-                <div className="w-full h-48 absolute bottom-0 left-0 bg-[linear-gradient(360deg,_#000_0%,_rgba(0,0,0,0.00)_100%)] "></div>
+                <div className="w-full h-48 absolute bottom-0 left-0 bg-[linear-gradient(360deg,_#020D18_0%,_rgba(0,0,0,0.00)_100%)] "></div>
             </div>
 
             <div className="flex justify-center items-start gap-12 w-[76%] h-full mx-auto pt-[126px] ">
@@ -68,12 +62,15 @@ export const MovieDetails = ({ movieTypeParams, idParams }: DetailsProps) => {
                 <div>
                     <div className="flex justify-between">
                         <h1 className="text-4xl font-extrabold font-Nunito">
-                            {data?.title === undefined ? data?.name : data?.title}
-                            <span className="font-extralight"> ({year})</span>
+                            {data?.title === undefined ? data?.name : data?.title}&nbsp;
+
+                            <span className="font-extralight"> 
+                            ({data?.release_date === undefined ? data?.first_air_date.slice(0, 4) : data?.release_date.slice(0, 4)})
+                            </span>
                         </h1>
 
                         <div className="flex items-center gap-8">
-                            <span className="bg-primary p-[5px] font-medium text-2xl">{note}</span>
+                            <span className="bg-primary p-[5px] font-medium text-2xl">{data?.vote_average.toFixed(1)}</span>
                             <Heart />
                         </div>
                     </div>
@@ -121,7 +118,7 @@ export const MovieDetails = ({ movieTypeParams, idParams }: DetailsProps) => {
                                 {data?.release_date === undefined ? "Data do primeiro ep: " : "Lançamento: "}
 
                                 <span className="text-textColors-100">
-                                    {data?.release_date === undefined ? data?.first_air_date : data?.release_date}
+                                    {data?.release_date === undefined ? formatDate(data?.first_air_date) : formatDate(data?.release_date)}
                                 </span>
                             </p>
 

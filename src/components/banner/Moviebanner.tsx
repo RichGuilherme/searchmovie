@@ -25,7 +25,7 @@ export const MovieBanner = () => {
                 <>
                     <div className="bg-black overflow-hidden">
                         <div
-                            style={{
+                            style={{    
                                 backgroundImage: `url(https://image.tmdb.org/t/p/original/${arrayUrlMovie})`
                             }}
                             className="flex bg-[cover] blur-[30px] w-full h-[500px]" />
@@ -36,7 +36,7 @@ export const MovieBanner = () => {
                             backgroundImage: `url(https://image.tmdb.org/t/p/original/${arrayUrlMovie})`
                         }}
                         className="flex w-5/6 h-[520px] bg-center bg-[cover] bg-no-repeat absolute mx-auto
-             my-0 left-2/4 top-[52.9%] -translate-x-2/4 -translate-y-2/4 brightness-[80%] z-10 cursor-pointer"
+                          my-0 left-2/4 top-[52.9%] -translate-x-2/4 -translate-y-2/4 brightness-[80%] z-10 cursor-pointer"
                     />
                 </>
             )}
