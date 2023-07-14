@@ -2,7 +2,7 @@ import Image from "next/image"
 import { Carousel } from "../Carousel"
 import { SwitchTab } from "../SwitchTab"
 import { useState } from "react"
-import { useFetch } from "@/data/hooks/useFeatch"
+import  useFetch  from "@/hooks/useFeatch"
 
 
 export const Trending = () => {
@@ -15,19 +15,24 @@ export const Trending = () => {
 
     return (
         <section
-            className="relative h-[487px] w-[80%] flex flex-col gap-[18px] mx-auto my-[84px]">
+            className="relative h-[487px] w-[80%] flex flex-col gap-[18px] mx-auto mt-[84px]">
 
-            <div
-                className="flex flex-row justify-between items-center w-full h-[12%] px-3">
+            <div className="flex flex-row justify-between items-center w-full  px-3">
                 <h1
-                    className="text-3xl font-medium font-Nunito flex items-center gap-2 "> 
+                    className="text-2xl font-medium font-Nunito flex flex-row items-center gap-2"> 
                     Tendências
-                    <Image
-                        src="/image/Ellipse.png"
-                        alt="ellipse"
-                        width={32}
-                        height={24}
-                    ></Image>
+                <Image
+                    src="/image/Ellipse.png"
+                    alt="ellipse"
+                    width={200}
+                    height={400}
+                    style={{
+                        objectFit: 'cover',
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "12px"
+                      }}
+                ></Image>
                 </h1>
 
                 <SwitchTab typeData={["Hoje", "Semana"]} onTabChange={onTabChange} />
