@@ -1,5 +1,5 @@
 
-export const formatDate = (dateString: any ) => {
+export const formatDate = (dateString: number) => {
     const date = new Date(dateString);
   
     const day = date.getDate();

@@ -16,7 +16,7 @@ export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) =
 
     const { updateSelectedGenres } = useGenres()
 
-    const handleGenreCheckbox = (genreId: any) => {
+    const handleGenreCheckbox = (genreId: number) => {
         const updatedGenres = genres.includes(genreId)
             ? genres.filter((id) => id !== genreId)
             : [...genres, genreId]
