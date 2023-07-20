@@ -5,7 +5,7 @@ import { DataResults } from "@/@types/apiInformation"
 import { CardItem } from "./CardItem"
 
 
-export const Carousel = ({ data, loading, movieType }: DataResults) => {
+export const Carousel = ({ dataResults, loading, mediaType }: DataResults) => {
   const carouselContainer = useRef<HTMLDivElement>(null)
 
   const navigation = (dir: "left" | "right") => {
@@ -44,7 +44,7 @@ export const Carousel = ({ data, loading, movieType }: DataResults) => {
       </div>
 
       <div className="flex flex-row justify-start gap-5 w-full">
-          <CardItem data={data} loading={loading} movieType={movieType}/>
+          <CardItem dataResults={dataResults} loading={loading} mediaType={mediaType}/>
       </div>
     </div>
 

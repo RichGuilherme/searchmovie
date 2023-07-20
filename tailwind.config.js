@@ -13,10 +13,6 @@ module.exports = {
         Nunito: ['Nunito', "sans-serif"],
         
      },
-      backgroundImage:{
-
-        space : "url('./assets/fundo-space.jpg')"
-     },
      colors : {
         primary: "#053ba3",
         textColors: {
@@ -33,5 +29,5 @@ module.exports = {
       fullSize : "100% 100%"
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 }

@@ -2,21 +2,17 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai"
 
-import { Genres } from "./Genres"
 import { CarouselLoading } from "./CarouselLoading"
 import { DataResults } from "@/@types/apiInformation"
 
-
-
-export const CardItem = ({ data, loading, movieType }: DataResults) => {
+export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
     const { push } = useRouter()
-
 
     return (
         <>
             {!loading ? (
                 <>
-                    {data?.map((data, index) => (
+                    {dataResults?.map((data, index) => (
                         index < 20 && (
 
                             <div
@@ -62,7 +58,7 @@ export const CardItem = ({ data, loading, movieType }: DataResults) => {
                                     </div>
 
                                     <button
-                                        onClick={() => push(`/detalhes?movieType=${data.media_type === undefined ? movieType : data.media_type}&id=${data.id}`)}
+                                        onClick={() => push(`/detalhes?mediaType=${data.media_type === undefined ? mediaType : data.media_type}&id=${data.id}`)}
                                         className="w-[109px] h-7 bg-primary rounded-[30px] border-[none] float-right
                                          text-textColors-200 text-[13px] text-center font-semibold cursor-pointer 
                                            relative hover:bg-white hover:text-primary"

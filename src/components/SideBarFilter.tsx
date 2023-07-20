@@ -10,7 +10,7 @@ type SideBarFilterProps = {
 }
 export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) => {
     const [showFilter, setShowFilter] = useState(false)
-    const [genres, setGenres] = useState([])
+    const [genres, setGenres] = useState<Array<number>>([])
 
     const { data } = useFetch(`https://api.themoviedb.org/3/genre/${mediaType}/list`)
 
@@ -61,14 +61,6 @@ export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) =
                     }
                 </li>
                 <ul className={`${showFilter === true ? "flex" : "hidden"} flex-col gap-2 font-light text-base text-textColors-100`}>
-                    <li className="">Ordenar de A a Z
-                        <input type="checkbox" className={chekbox} />
-                    </li>
-
-                    <li className="">Ordenar de Z a A
-                        <input type="checkbox" className={chekbox} />
-                    </li>
-
                     <p className="text-xl">Genêros: </p>
                     {data?.genres.map(genre => (
                         <li key={genre.id}

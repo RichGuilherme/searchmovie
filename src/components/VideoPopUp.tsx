@@ -28,7 +28,7 @@ export const VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUpP
         className='w-full h-full absolute top-0 left-0 bg-[rgba(0,0,0,.25)] backdrop-blur-sm duration-700 z-30'></div>
 
       <div
-        className='aspect-video w-[800px] scale-[1] z-40'>
+        className='aspect-video w-[800px] bg-white scale-[1] z-40'>
 
         <span
           onClick={() => hiddenVideo()}

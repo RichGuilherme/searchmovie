@@ -9,6 +9,7 @@ export const Trending = () => {
     const [endpoint, setEndpoint] = useState<string>("day")
 
     const { data, loading } = useFetch(`https://api.themoviedb.org/3/trending/all/${endpoint}`)
+
     const onTabChange = (tab:string):void => {
         setEndpoint(tab === "Hoje" ? "day" : "week")
     };
@@ -38,7 +39,7 @@ export const Trending = () => {
                 <SwitchTab typeData={["Hoje", "Semana"]} onTabChange={onTabChange} />
             </div>
 
-            <Carousel data={data?.results} loading={loading}/>
+            <Carousel dataResults={data?.results} loading={loading}/>
 
         </section>
     )

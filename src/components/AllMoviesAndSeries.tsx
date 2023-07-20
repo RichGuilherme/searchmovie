@@ -43,7 +43,6 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
             Authorization: `Bearer ${Key}`
           }
         }
-
         const params = `${mediaType}?include_adult=false&language=pt-BR&page=${filterPrevious === filter ? currentPage : 1}&sort_by=${filter}&vote_count.gte=500&with_genres=${genresQueryString}`
         const response = await fetch(`${urlBase}${params}`, options)
         const data = await response.json()
@@ -69,7 +68,7 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
     };
 
     fetchData();
-  }, [currentPage, filter, selectedGenres, mediaType])
+  }, [currentPage, filter, selectedGenres, mediaType, Key, filterPrevious, genresQueryString])
 
   useEffect(() => {
     setCurrentPage(1); // Resetar a página ao mudar o filtro ou os gêneros selecionados
@@ -155,7 +154,7 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
                     </div>
 
                     <button
-                      onClick={() => push(`/detalhes?mediaType=${data.media_type === undefined ? "movie" : data.media_type}&id=${data.id}`)}
+                      onClick={() => push(`/detalhes?mediaType=${data.media_type === undefined ? mediaType : data.media_type}&id=${data.id}`)}
                       className="w-[109px] h-7 bg-primary rounded-[30px] border-[none] float-right
                                          text-textColors-200 text-[13px] text-center font-semibold cursor-pointer 
                                            relative hover:bg-white hover:text-primary"

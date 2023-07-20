@@ -6,11 +6,10 @@ import { ApiResponse} from "../@types/apiInformation";
 const useFetch = (url:string) => {
     const [data, setData] = useState< ApiResponse |null>(null)
     const [dataPage, setDataPage] = useState<number | null>(null)
-    const [loading, setLoading] = useState<boolean | null>(null)
+    const [loading, setLoading] = useState<boolean | null>(true)
     const [error, setError] = useState< null | string>(null)
 
     useEffect(() => {
-        setLoading(true)
         setData(null)
         setError(null)
 

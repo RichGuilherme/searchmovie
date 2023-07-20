@@ -5,14 +5,14 @@ import { DetailsProps } from "@/@types/apiInformation"
 import { Recommendations } from "./Recommendations"
 
 
-export const Details = ({movieTypeParams, idParams}: DetailsProps) => {
-  const {data: crewData, loading: crewLoading} = useFetch(`https://api.themoviedb.org/3/${movieTypeParams}/${idParams}/credits`)
+export const Details = ({mediaTypeParams, idParams}: DetailsProps) => {
+  const {data: crewData, loading: crewLoading} = useFetch(`https://api.themoviedb.org/3/${mediaTypeParams}/${idParams}/credits`)
 
   return (
-    <main className="w-full h-screen relative text-textColors-200 font-OpenSans z-0">
-       <MovieDetails movieTypeParams={movieTypeParams} idParams={idParams} />
+    <main className="w-full relative text-textColors-200 font-OpenSans z-0">
+       <MovieDetails mediaTypeParams={mediaTypeParams} idParams={idParams} />
        <TopCast crew={crewData} loadingCrew={crewLoading}/>
-       <Recommendations  movieTypeParams={movieTypeParams} idParams={idParams} />
+       <Recommendations  mediaTypeParams={mediaTypeParams} idParams={idParams} />
     </main>
   )
 }

@@ -3,6 +3,7 @@ import { SwitchTab } from "../SwitchTab"
 import { Carousel } from "../Carousel"
 import { useState } from "react"
 import useFetch from "@/hooks/useFeatch"
+import { EffectSmoke } from "../EffectSmoke"
 
 export const TopRated = () => {
     const [endpoint, setEndpoint] = useState<string>("movie")
@@ -37,10 +38,9 @@ export const TopRated = () => {
                     <SwitchTab typeData={["Filmes", "Tv Show"]} onTabChange={onTabChange} />
                 </div>
 
-                <Carousel data={data?.results} loading={loading} movieType={endpoint} />
-
+                <Carousel dataResults={data?.results} loading={loading} mediaType={endpoint} />
             </section>
-            <div className="w-full h-48 absolute bottom-[-24px] left-0 bg-[linear-gradient(360deg,_#053ba3_0%,_rgba(0,0,0,0.00)_100%)]  "></div>
+            <EffectSmoke />
         </>
     )
 }

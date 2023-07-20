@@ -38,7 +38,7 @@ export const WhatIsPopular = () => {
                 <SwitchTab typeData={["Filmes", "Tv Show"]} onTabChange={onTabChange} />
             </div>
 
-            <Carousel data={data?.results} loading={loading} movieType={endpoint}/>
+            <Carousel dataResults={data?.results} loading={loading} mediaType={endpoint}/>
         </section>
     )
 }

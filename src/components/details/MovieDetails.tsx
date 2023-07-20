@@ -9,15 +9,16 @@ import { HoursAndMinutes } from "@/utils/hoursAndMinutes"
 import { VideoPopUp } from "../VideoPopUp"
 import Image from "next/image"
 import { formatDate } from "@/utils/formatData"
+import { AiOutlineHeart } from "react-icons/ai"
 
 
 
-export const MovieDetails = ({ movieTypeParams, idParams }: DetailsProps) => {
+export const MovieDetails = ({ mediaTypeParams, idParams }: DetailsProps) => {
     const [videoKey, setVideoKey] = useState<string>("")
     const [videoShow, setVideoShow] = useState<boolean>(false)
 
-    const { data, loading } = useFetch(`https://api.themoviedb.org/3/${movieTypeParams}/${idParams}`)
-    const { data: videoData, loading: videoLoading } = useFetch(`https://api.themoviedb.org/3/${movieTypeParams}/${idParams}/videos`)
+    const { data, loading } = useFetch(`https://api.themoviedb.org/3/${mediaTypeParams}/${idParams}`)
+    const { data: videoData, loading: videoLoading } = useFetch(`https://api.themoviedb.org/3/${mediaTypeParams}/${idParams}/videos`)
 
     const _videoKey = videoData?.results[0]?.key
 
@@ -71,7 +72,10 @@ export const MovieDetails = ({ movieTypeParams, idParams }: DetailsProps) => {
 
                         <div className="flex items-center gap-8">
                             <span className="bg-primary p-[5px] font-medium text-2xl">{data?.vote_average.toFixed(1)}</span>
-                            <Heart />
+                            
+                            <AiOutlineHeart
+                                            size={35}
+                                            className="hover:text-red-700 cursor-pointer" />
                         </div>
                     </div>
 
@@ -130,7 +134,7 @@ export const MovieDetails = ({ movieTypeParams, idParams }: DetailsProps) => {
                             </p>
                         </div>
 
-                        {movieTypeParams === "tv" && (
+                        {mediaTypeParams === "tv" && (
                             <div className="flex justify-start gap-3  w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
                                 <p>
                                     Número de ep:
