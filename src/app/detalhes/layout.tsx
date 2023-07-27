@@ -1,6 +1,8 @@
 import { Footer } from '@/components/footer/Index'
 import '../globals.css'
 import { Header } from '@/components/header/Index'
+import { ParamsDetailsProvider } from '@/context/paramsDetailsContext'
+import MoreInfor from './page'
 
 export const metadata = {
   title: 'Create Next App',
@@ -12,13 +14,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-    
+
   return (
     <html lang="en">
       <body >
+        <ParamsDetailsProvider>
           <Header />
-          {children}
+            <MoreInfor/>
           <Footer />
+        </ParamsDetailsProvider>
       </body>
     </html>
   )

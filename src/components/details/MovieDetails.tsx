@@ -1,19 +1,19 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { AiOutlineHeart } from "react-icons/ai"
 import useFetch from "@/hooks/useFeatch"
-
-import { Heart } from "../icons/heart "
-import { Play } from "../icons/play"
+import Image from "next/image"
+import { CiPlay1 } from "react-icons/ci"
 
 import { DetailsProps } from "@/@types/apiInformation"
 import { HoursAndMinutes } from "@/utils/hoursAndMinutes"
 import { VideoPopUp } from "../VideoPopUp"
-import Image from "next/image"
 import { formatDate } from "@/utils/formatData"
-import { AiOutlineHeart } from "react-icons/ai"
+import { useParamsDetails } from "@/context/paramsDetailsContext"
 
 
-
-export const MovieDetails = ({ mediaTypeParams, idParams }: DetailsProps) => {
+export const MovieDetails = () => {
+    const {idParams, mediaTypeParams} = useParamsDetails()
+   
     const [videoKey, setVideoKey] = useState<string>("")
     const [videoShow, setVideoShow] = useState<boolean>(false)
 
@@ -23,7 +23,8 @@ export const MovieDetails = ({ mediaTypeParams, idParams }: DetailsProps) => {
     const _videoKey = videoData?.results[0]?.key
 
     const arrayGenres = data?.genres
- 
+
+
     return (
         <section>
             <div className="absolute w-full h-screen -z-30">
@@ -39,10 +40,11 @@ export const MovieDetails = ({ mediaTypeParams, idParams }: DetailsProps) => {
                 <div className="w-full h-48 absolute bottom-0 left-0 bg-[linear-gradient(360deg,_#020D18_0%,_rgba(0,0,0,0.00)_100%)] "></div>
             </div>
 
-            <div className="flex justify-center items-start gap-12 w-[76%] h-full mx-auto pt-[126px] ">
+            <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start
+             gap-12 w-full max-w-[1200px] h-full mx-auto pt-[126px] ">
 
-                <div className="max-w-[403px] min-w-[403px] w-2/4 h-[502px]">
-                    {data?.poster_path && data?.poster_path !== "" && (
+                <div className="max-w-[403px] w-full h-[502px]">
+                    {!loading ? (
                         <Image
                             src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
                             alt="poster"
@@ -57,25 +59,28 @@ export const MovieDetails = ({ mediaTypeParams, idParams }: DetailsProps) => {
                             }}
                         >
                         </Image>
+                    ) : (
+                        <div className="max-w-[403px] min-w-[403px] w-2/4 h-[502px] rounded-xl bg-[rgba(255,255,255,0.25)]"></div>
                     )}
+
                 </div>
 
-                <div>
-                    <div className="flex justify-between">
+                <div className="max-lg:mx-4">
+                    <div className="flex justify-between sm:flex-row flex-col">
                         <h1 className="text-4xl font-extrabold font-Nunito">
                             {data?.title === undefined ? data?.name : data?.title}&nbsp;
 
-                            <span className="font-extralight"> 
-                            ({data?.release_date === undefined ? data?.first_air_date.slice(0, 4) : data?.release_date.slice(0, 4)})
+                            <span className="font-extralight">
+                                ({data?.release_date === undefined ? data?.first_air_date.slice(0, 4) : data?.release_date.slice(0, 4)})
                             </span>
                         </h1>
 
                         <div className="flex items-center gap-8">
                             <span className="bg-primary p-[5px] font-medium text-2xl">{data?.vote_average.toFixed(1)}</span>
-                            
+
                             <AiOutlineHeart
-                                            size={35}
-                                            className="hover:text-red-700 cursor-pointer" />
+                                size={35}
+                                className="hover:fill-red-700 cursor-pointer" />
                         </div>
                     </div>
 
@@ -99,43 +104,47 @@ export const MovieDetails = ({ mediaTypeParams, idParams }: DetailsProps) => {
                             setVideoKey(_videoKey || "")
                             setVideoShow(true)
                         }}
-                        className="flex items-center gap-2 my-6 cursor-pointer">
+                        className="flex items-center gap-2 my-6 cursor-pointer group">
 
-                        <Play />
-                        <span className="text-2xl font-semibold">Assistir Trailer</span>
+                        <CiPlay1
+                            size={30}
+                            className="group-hover:stroke-primary stroke-1" />
+
+                        <span className="text-2xl font-semibold group-hover:text-primary">Assistir Trailer</span>
                     </div>
 
                     <h2 className="text-3xl font-medium font-Nunito">Sinopse</h2>
 
-                    <p className="text-textColors-100 font-normal text-base pr-36 mt-1">
+                    <p className="text-textColors-100 font-normal text-base pr-3 sm:pr-36 mt-1">
                         {data?.overview}
                     </p>
 
-                    <div className="flex flex-col pr-36">
-                        <div className="flex justify-start gap-3 w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
+                    <div className="flex flex-col pr-3 sm:pr-36">
+                        <div className="flex justify-start gap-3 max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
                             <p >
                                 Situação:
-                                <span className="text-textColors-100"> {data?.status}</span>
+                                <span className="text-textColors-100 "> {data?.status}</span>
                             </p>
 
                             <p>
                                 {data?.release_date === undefined ? "Data do primeiro ep: " : "Lançamento: "}
 
-                                <span className="text-textColors-100">
-                                    {data?.release_date === undefined ? formatDate(data?.first_air_date) : formatDate(data?.release_date)}
+                                <span className="text-textColors-100 whitespace-nowrap">
+                                    {data?.release_date === undefined ? formatDate((data?.first_air_date) || "") : formatDate(data?.release_date)}
                                 </span>
                             </p>
 
                             <p>
                                 {data?.runtime === undefined ? "Tempo de um ep: " : "Quantidade de tempo: "}
-                                <span className="text-textColors-100">
-                                    {HoursAndMinutes(data?.runtime === undefined ? data?.episode_run_time : data?.runtime)}
+                                <span className="text-textColors-100 whitespace-nowrap">
+                                    {HoursAndMinutes((data?.runtime === undefined ? data?.episode_run_time : data?.runtime) || 0)}
                                 </span>
                             </p>
                         </div>
-
+                       
+                        {/* Caso o mediaType for tvShow ele vai esse código vai adicionar informações a mais */}
                         {mediaTypeParams === "tv" && (
-                            <div className="flex justify-start gap-3  w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
+                            <div className="flex justify-start gap-3  max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
                                 <p>
                                     Número de ep:
                                     <span className="text-textColors-100"> {data?.number_of_episodes}</span>
@@ -148,19 +157,20 @@ export const MovieDetails = ({ mediaTypeParams, idParams }: DetailsProps) => {
                             </div>
                         )}
 
-                        <div className="flex justify-start w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
+                        <div className="flex justify-start max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
                             <p>Director:
                                 <span className="text-textColors-100"> Joaquim Dos Santos, Justin K. Thompson, Kemp Powers</span>
                             </p>
                         </div>
 
-                        <div className="flex justify-start w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
+                        <div className="flex justify-start max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
                             <p>Writer:
                                 <span className="text-textColors-100"> Dave Callaham, Phil Lord, Christopher Miller</span>
                             </p>
                         </div>
                     </div>
                 </div>
+
                 <VideoPopUp
                     videoKey={videoKey}
                     show={videoShow}

@@ -1,22 +1,20 @@
-import { ApiResponse } from "@/@types/apiInformation"
+import { DataCast } from "@/@types/apiInformation"
 
 type topCastProps = {
-  crew: ApiResponse | null
+  crew?: DataCast[]
   loadingCrew: boolean | null
 }
 
 export const TopCast = ({ crew, loadingCrew }: topCastProps) => {
-
-  const _cast = crew?.cast
-
+ 
   return (
-    <section className="w-[76%]  mx-auto mt-14">
+    <section className="w-[76%] mx-auto mt-14">
       <h2 className="text-3xl font-medium font-Nunito">Top Atores</h2>
 
       {!loadingCrew ? (
-        <div className="flex flex-row gap-14 w-full mt-6">
+        <div className="flex flex-row gap-14 w-full mt-6 overflow-y-hidden ">
 
-          {_cast?.map((actors, i) => (
+          {crew && crew.map((actors, i) => (
             i <= 5 &&
             <div
               key={i}

@@ -1,10 +1,10 @@
-import { AllMovies } from "@/components/allMovies/Index"
+import { AllMediaType } from "@/components/allMediaType/Index"
 import { GenresProvider } from "@/context/genresContext"
 
 export default function Series() {
   return (
     <GenresProvider>
-      <AllMovies mediaType="tv"/>
+      <AllMediaType mediaType="tv"/>
     </GenresProvider>
   )
 }
