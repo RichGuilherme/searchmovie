@@ -11,7 +11,7 @@ type videoPopUpProps = {
   setVideoKey: Dispatch<SetStateAction<string>>;
 }
 
-export const VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUpProps) => {
+export const  VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUpProps) => {
   const hiddenVideo = () => {
     setShow(false)
     setVideoKey("")

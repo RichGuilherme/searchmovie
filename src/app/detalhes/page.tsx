@@ -6,21 +6,25 @@ import { useEffect } from "react"
 
 export default function MoreInfor() {
   const detailsMovieParams = useSearchParams()
-  const mediaTypeParams = detailsMovieParams?.get('mediaType')
-  const idParams = detailsMovieParams?.get('id')
+  const mediaType = detailsMovieParams?.get('mediaType')
+  const id = detailsMovieParams?.get('id')
 
-  const {setIdParams, setMediaTypeParams } = useParamsDetails()
+  const {setIdParams, setMediaTypeParams, idParams, mediaTypeParams } = useParamsDetails()
  
 
   useEffect(() => {
-    if (typeof idParams === 'string') {
-      setIdParams(idParams)
+    if (typeof id === 'string') {
+      setIdParams(id)
     }
-    if (typeof mediaTypeParams === 'string') {
-      setMediaTypeParams(mediaTypeParams)
+    if (typeof mediaType === 'string') {
+      setMediaTypeParams(mediaType)
     }
-  }, [idParams, mediaTypeParams, setIdParams, setMediaTypeParams])
+  }, [id, mediaType, setIdParams, setMediaTypeParams])
 
+
+  if (idParams === "" || mediaTypeParams === "") { // a primeira execução está retornando string "", assim com esse if evitar de ocorre erro nos useFetch
+    return <div>Loading...</div>;
+  }
 
   return (
       <Details />

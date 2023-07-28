@@ -38,7 +38,7 @@ export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
                                 )}
 
 
-                                <div className="hidden absolute h-[107px] w-full backdrop-blur-[4px] bg-[rgba(0,0,0,0.45)] pl-2 pr-2.5 pt-2
+                                <div className="block lg:hidden absolute h-[107px] w-full rounded-[13px] backdrop-blur-[4px] bg-[rgba(0,0,0,0.45)] pl-2 pr-2.5 pt-2
                                        pb-3.5 bottom-0 group-hover:block">
                                     <div className="flex justify-between relative" >
                                         <h3 className="text-[18px] font-semibold truncate pr-2 w-[79%] h-6 font-Righteous">

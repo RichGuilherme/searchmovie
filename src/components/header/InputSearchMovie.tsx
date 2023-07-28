@@ -1,26 +1,22 @@
-"use client"
-
-import { useState } from "react"
-import { SearchIcon } from "../icons/Search-icon"
+import { IoMdSearch } from "react-icons/io"
 
 type inputSearchProps = {
     onShowSearch: (any:boolean) => void
 }
 
 export const TagInputSearchMovie = ({onShowSearch}: inputSearchProps ) => {
-    const [showOpen, setShowOpen] = useState<boolean>(false)
+    const showSearchOpen = false
 
     const showSearch = () => {
-        onShowSearch(!showOpen)
+        onShowSearch(!showSearchOpen)
     }
 
     return (
         <div 
         onClick={() => showSearch()}
-        className="flex items-center gap-2 relative cursor-pointer text-white">
-                <SearchIcon 
-                
-                color={"white"} />
+        className="flex items-center gap-2 relative cursor-pointer text-white 
+        hover:text-primary mr-4 lg:mr-10 ">
+             <IoMdSearch size={29} />
         </div>
     )
 }

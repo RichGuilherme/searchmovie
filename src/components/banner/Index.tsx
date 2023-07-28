@@ -8,7 +8,7 @@ export const Banner = () => {
                 <MovieBanner />
             <div 
             className="w-full h-[250px] absolute left-0 bottom-0
-            bg-[linear-gradient(180deg,_rgba(4,_21,_45,_0)_0%,_#020D18_79.17%)]"></div>
+               bg-[linear-gradient(180deg,_rgba(4,_21,_45,_0)_0%,_#020D18_79.17%)]"></div>
             </section>
         </>
     )

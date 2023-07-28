@@ -19,7 +19,7 @@ export const SwitchTab = ({ typeData, onTabChange }: dataSwitchTag) => {
     };
 
     return (
-        <div className="relative">
+        <div className="relative ">
             <div
                 className="checkbox h-[34px] p-[2px] bg-white rounded-full ">
 

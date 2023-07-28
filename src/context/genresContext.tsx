@@ -1,22 +1,23 @@
 "use client"
-import { ReactNode, createContext, useContext, useState } from 'react';
+import { GenresContextType, ProviderProps } from '@/@types/contextApi';
+import { createContext, useContext, useState } from 'react';
 
-type ProviderProps = {
-    children: ReactNode
-}
-
-const GenresContext = createContext({
-  selectedGenres: [Array<number>],
-  updateSelectedGenres: (genres: any) => {},
-})
+const GenresContext = createContext<GenresContextType>({
+  selectedGenres: [],
+  updateSelectedGenres: () => { },
+});
 
 export const useGenres = () => useContext(GenresContext)
 
 export const GenresProvider = ({ children }: ProviderProps) => {
-  const [selectedGenres, setSelectedGenres] = useState([])
+  const [selectedGenres, setSelectedGenres] = useState<number[]>([])
 
-  const updateSelectedGenres = (genres: any) => {
-    setSelectedGenres(genres)
+  const updateSelectedGenres = (genres: number[] | number) => {
+    if (Array.isArray(genres)) {
+      setSelectedGenres(genres)
+    } else {
+      setSelectedGenres([genres])
+    }
   }
 
   return (

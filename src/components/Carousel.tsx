@@ -8,6 +8,7 @@ import { CardItem } from "./CardItem"
 export const Carousel = ({ dataResults, loading, mediaType }: DataResults) => {
   const carouselContainer = useRef<HTMLDivElement>(null)
 
+  // Esse código serve para rolagem lateral no carrosel
   const navigation = (dir: "left" | "right") => {
     const container = carouselContainer.current
 
@@ -29,7 +30,7 @@ export const Carousel = ({ dataResults, loading, mediaType }: DataResults) => {
       className="pl-2 text-textColors-200 overflow-hidden ">
       <div
         onClick={() => navigation("left")}
-        className="flex items-center justify-center w-9 h-9 rounded-full bg-primary hover:bg-white  
+        className="hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-primary hover:bg-white  
           cursor-pointer absolute top-60 -left-3 z-10 group">
 
         <RxArrowLeft size={22} className="group-hover:text-primary" />
@@ -37,14 +38,17 @@ export const Carousel = ({ dataResults, loading, mediaType }: DataResults) => {
 
       <div
         onClick={() => navigation("right")}
-        className="flex items-center justify-center w-9 h-9 rounded-full bg-primary hover:bg-white 
+        className="hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-primary hover:bg-white 
           cursor-pointer absolute top-60 -right-4 z-10 group">
 
-        <RxArrowRight size={22} className="group-hover:text-primary"/>
+        <RxArrowRight size={22} className="group-hover:text-primary" />
       </div>
 
-      <div className="flex flex-row justify-start gap-5 w-full">
-          <CardItem dataResults={dataResults} loading={loading} mediaType={mediaType}/>
+      <div className="flex flex-row justify-start gap-5 w-full pb-2 overflow-y-hidden md:overflow-visible">
+        <CardItem
+          dataResults={dataResults}
+          loading={loading}
+          mediaType={mediaType} />
       </div>
     </div>
 

@@ -17,13 +17,16 @@ export default function Login() {
               width={181}
             />
           </Link>
+
           <div className="h-full flex flex-col justify-center items-center gap-8">
             <h1 className="text-6xl font-extrabold">Olá, Amigo!</h1>
             <p className="text-xl font-light text-center max-w-xs">Caso não tenha criado uma conta</p>
+            
             <button className="w-80 h-16 mt-8 border border-white rounded-full text-2xl font-bold bg-transparent">
               <Link href="/register">Cria conta</Link>
             </button>
           </div>
+
         </div>
         <InputLogin />
       </section>

@@ -1,13 +1,15 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
-import { MovieData } from "@/@types/apiInformation";
 import { CarouselLoading } from "./CarouselLoading";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useDataAllMediaType } from "@/hooks/useDataAllMediaType";
 import { useGenres } from "@/context/genresContext";
+import { MovieData } from "@/@types/apiInformation";
 
 
 type AllMoviesAndSeriesProps = {
@@ -15,89 +17,50 @@ type AllMoviesAndSeriesProps = {
   filter: string
 }
 export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProps) => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [filterPrevious, setFilterPrevious] = useState("popularity.desc")
-
-  const [loading, setLoading] = useState(true)
-  const [dataApi, setDataApi] = useState<MovieData[]>([])
+  const elementRef = useRef<HTMLDivElement>(null)
+ 
   const [isLoadingElementObserve, setIsLoadingElementObserve] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  
+  const {dataApi, loading} = useDataAllMediaType({filter, mediaType, newCurrentPage: currentPage})
+
+
+  // Esse useEffect serve para obeserva quando o usuário chega no final da página, assim adicionando mais um page.Cada page representa um array com 
+  // 20 objetos com os dados dos sobre os filmes e series.
+  useEffect(() => {
+      const intersectionObserver = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting) && !isLoadingElementObserve) {
+              setIsLoadingElementObserve(true)
+
+              setCurrentPage(currentValue => currentValue + 1)
+          }
+      })
+
+      if (elementRef.current) {
+          intersectionObserver.observe(elementRef.current)
+      }
+
+      return () => intersectionObserver.disconnect()
+  }, [isLoadingElementObserve])
+
+  
+  useEffect(() => {
+    setIsLoadingElementObserve(false)
+  }, [dataApi])
 
   const { push } = useRouter()
   const renderedIds = new Set() // Armazena todos os id de filme e series para depois evitar duplicatas.
 
 
-  const { selectedGenres } = useGenres()
-  const genresQueryString = selectedGenres.length > 0 ? selectedGenres.join('%2C') : ''
-
-  const elementRef = useRef<HTMLDivElement>(null)
-  const Key = process.env.NEXT_PUBLIC_API_URL
-  const urlBase = "https://api.themoviedb.org/3/discover/"
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const options = {
-          method: 'GET',
-          headers: {
-            accept: 'application/json',
-            Authorization: `Bearer ${Key}`
-          }
-        }
-        const params = `${mediaType}?include_adult=false&language=pt-BR&page=${filterPrevious === filter ? currentPage : 1}&sort_by=${filter}&vote_count.gte=500&with_genres=${genresQueryString}`
-        const response = await fetch(`${urlBase}${params}`, options)
-        const data = await response.json()
-
-
-        if (currentPage === 1 && filterPrevious === filter) {
-          setDataApi(data.results)
-          setFilterPrevious(filter)
-          setLoading(false)
-
-        } else {
-          setDataApi(prevData => [...prevData, ...data.results])
-          setFilterPrevious(filter)
-          setLoading(false)
-        }
-
-      } catch (error) {
-        console.error(error)
-
-      } finally {
-        setIsLoadingElementObserve(false)
-      }
-    };
-
-    fetchData();
-  }, [currentPage, filter, selectedGenres, mediaType, Key, filterPrevious, genresQueryString])
-
-  useEffect(() => {
-    setCurrentPage(1); // Resetar a página ao mudar o filtro ou os gêneros selecionados
-    setDataApi([]); // Limpar os dados anteriores ao mudar o filtro ou os gêneros selecionados
-  }, [filter, genresQueryString])
-
-
-  useEffect(() => {
-    const intersectionObserver = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting) && !isLoadingElementObserve) {
-        setIsLoadingElementObserve(true);
-        setCurrentPage(currentValue => currentValue + 1)
-      }
-    })
-
-    if (elementRef.current) {
-      intersectionObserver.observe(elementRef.current)
-    }
-
-    return () => intersectionObserver.disconnect()
-  }, [isLoadingElementObserve])
-
-
   return (
     <section className="w-full pt-36 relative ">
 
-      <h1 className="text-2xl font-medium font-Nunito relative ml-10">Todos os Filmes</h1>
+      <h1 className="text-2xl font-medium font-Nunito relative ml-10 max-lg:ml-2">
+        Todos os {`${mediaType === "movie" ? "Filmes" : "Series"}`}
+      </h1>
 
-      <div className="grid grid-cols-[repeat(auto-fill,267px)] justify-center gap-x-5 gap-y-10 mt-[24px] w-full">
+      <div className="grid grid-cols-[repeat(auto-fill,267px)] max-sm:grid-cols-[repeat(2,minmax(0px,1fr))] justify-center gap-x-5 gap-y-10 
+           mt-[24px] max-sm:mx-3">
 
         {!loading ? (
           <>
@@ -106,15 +69,15 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
               if (renderedIds.has(data.id)) {
                 return null // Dados repertidos são excluidos
               }
-               
+
               renderedIds.add(data.id)
 
               return (
 
                 <div
                   key={data.id}
-                  className="bg-fullSize min-w-[267px] h-[379px] bg-center bg-no-repeat rounded-[13px]
-                                            group relative ">
+                  className="bg-fullSize min-w-[267px] h-[379px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px]
+                             group relative ">
 
                   {data?.poster_path && data?.poster_path !== "" && (
                     <Image
@@ -134,7 +97,7 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
                   )}
 
 
-                  <div className="hidden absolute h-[107px] w-full backdrop-blur-[4px] bg-[rgba(0,0,0,0.45)] pl-2 pr-2.5 pt-2
+                  <div className="block lg:hidden absolute h-[107px] w-full rounded-[13px] backdrop-blur-[4px] bg-[rgba(0,0,0,0.45)] pl-2 pr-2.5 pt-2
                                        pb-3.5 bottom-0 group-hover:block">
                     <div className="flex justify-between relative" >
                       <h3 className="text-[18px] font-semibold truncate pr-2 w-[79%] h-6 font-Righteous">
@@ -176,7 +139,6 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
         )
         }
       </div>
-
 
       <div
         className="w-full h-8 relative"

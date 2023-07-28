@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { useState } from "react";
 
 import useFetch from "@/hooks/useFeatch";
@@ -15,30 +14,22 @@ export const WhatIsPopular = () => {
     }
 
     return (
-        <section className="relative h-[487px] w-[80%] flex flex-col gap-[18px] mx-auto my-[25px]">
+        <section className="relative h-[487px] w-[93%] sm:w-[80%] flex flex-col gap-[18px] mx-auto my-[25px]">
 
-            <div className="flex flex-row justify-between items-center w-full  px-3">
+            <div className="flex flex-row justify-between items-center w-full px-3">
                 <h1
-                    className="text-2xl whitespace-nowrap font-medium font-Nunito flex flex-row items-center gap-2 ">
+                    className="text-2xl sm:whitespace-nowrap font-medium font-Nunito flex 
+                    flex-row items-center gap-2 ">
                     O que está Popular
-                    <Image
-                        src="/image/Ellipse.png"
-                        alt="ellipse"
-                        width={200}
-                        height={120}
-                        style={{
-                            objectFit: 'cover',
-                            width: "100%",
-                            height: "100%",
-                            borderRadius: "12px"
-                        }}
-                    ></Image>
                 </h1>
 
                 <SwitchTab typeData={["Filmes", "Tv Show"]} onTabChange={onTabChange} />
             </div>
 
-            <Carousel dataResults={data?.results} loading={loading} mediaType={endpoint}/>
+            <Carousel
+                dataResults={data?.results}
+                loading={loading}
+                mediaType={endpoint} />
         </section>
     )
 }

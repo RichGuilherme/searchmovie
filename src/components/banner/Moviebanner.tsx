@@ -30,6 +30,7 @@ export const MovieBanner = () => {
                             }}
                             className="flex bg-[cover] blur-[30px] w-full h-[500px]" />
                     </div>
+                    
                     <div
                         onClick={() => push(`/detalhes?mediaType=movie&id=${data?.results[numbRandom]?.id}`)}
                         style={{

@@ -1,5 +1,4 @@
 "use client"
-
 import { WhatIsPopular } from "@/components/WhatIsPopular.tsx/Index"
 import { Banner } from "@/components/banner/Index"
 import { TopRated } from "@/components/topRated/Index"
