@@ -11,7 +11,7 @@ export const SearchResults = ({ queryProps }: searchResultsProps) => {
     const [currentPage, setCurrentPage] = useState(1)
     const { data: _data, loading } = useFetch(`https://api.themoviedb.org/3/search/multi?query=${queryProps}&page=${currentPage}`)
 
-    const numberPage = _data?.total_pages || 1
+    const numberPage = _data?.total_pages 
     const data = _data?.results
 
     const handlerPage = (numb: number) => {
@@ -58,11 +58,10 @@ export const SearchResults = ({ queryProps }: searchResultsProps) => {
                         }
 
                         <div className="flex flex-row items-center justify-center gap-2">
-                            {numberPage && Array.from({ length: numberPage }).map((_, index) => {
+                            {numberPage && Array.from({ length: numberPage }, (_, index) => index + 1).map((index) => {
                                 if (index === 0) {
                                     return null
                                 }
-
                                 return (
                                     <div
                                         onClick={() => handlerPage(index)}
@@ -77,9 +76,9 @@ export const SearchResults = ({ queryProps }: searchResultsProps) => {
                             })}
                         </div>
 
-                        {numberPage > 1 &&
+                        {(numberPage && numberPage > 1) && (numberPage !== currentPage) &&
                             <SlArrowRight
-                                onClick={() => handlerPage(currentPage + 1)}
+                                onClick={() => handlerPage(numberPage === currentPage ? 0 : currentPage + 1)}
                                 size={25}
                                 className="fill-textColors-100 hover:fill-white  cursor-pointer" />
                         }
