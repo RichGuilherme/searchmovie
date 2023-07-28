@@ -1,24 +1,29 @@
-import { useContext, useState } from "react"
+import {  useState } from "react"
 import { AiOutlineHeart } from "react-icons/ai"
 import useFetch from "@/hooks/useFeatch"
 import Image from "next/image"
 import { CiPlay1 } from "react-icons/ci"
 
-import { DetailsProps } from "@/@types/apiInformation"
+import { topCastProps } from "@/@types/apiInformation"
 import { HoursAndMinutes } from "@/utils/hoursAndMinutes"
 import { VideoPopUp } from "../VideoPopUp"
 import { formatDate } from "@/utils/formatData"
 import { useParamsDetails } from "@/context/paramsDetailsContext"
 
 
-export const MovieDetails = () => {
-    const {idParams, mediaTypeParams} = useParamsDetails()
-   
+export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
+    const { idParams, mediaTypeParams } = useParamsDetails()
+
     const [videoKey, setVideoKey] = useState<string>("")
     const [videoShow, setVideoShow] = useState<boolean>(false)
 
     const { data, loading } = useFetch(`https://api.themoviedb.org/3/${mediaTypeParams}/${idParams}`)
     const { data: videoData, loading: videoLoading } = useFetch(`https://api.themoviedb.org/3/${mediaTypeParams}/${idParams}/videos`)
+
+    const director = crew?.filter((f) => f.job === "Director");
+    const writer = crew?.filter(
+        (f) => f.job === "Screenplay" || f.job === "Story" || f.job === "Writer"
+    );
 
     const _videoKey = videoData?.results[0]?.key
 
@@ -141,7 +146,7 @@ export const MovieDetails = () => {
                                 </span>
                             </p>
                         </div>
-                       
+
                         {/* Caso o mediaType for tvShow ele vai esse código vai adicionar informações a mais */}
                         {mediaTypeParams === "tv" && (
                             <div className="flex justify-start gap-3  max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
@@ -157,17 +162,39 @@ export const MovieDetails = () => {
                             </div>
                         )}
 
-                        <div className="flex justify-start max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
-                            <p>Director:
-                                <span className="text-textColors-100"> Joaquim Dos Santos, Justin K. Thompson, Kemp Powers</span>
-                            </p>
-                        </div>
+                        {director && director?.length > 0 && (
+                            <div className="flex justify-start max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
+                                <p>Diretor:{" "}
+                                    {director?.map((d, i) => (
+                                        <span
+                                            className="text-textColors-100"
+                                            key={i}>
+                                            {d.name}
+                                            {director.length -
+                                                1 !==
+                                                i && ", "}
+                                        </span>
+                                    ))}
+                                </p>
+                            </div>
+                        )}
 
-                        <div className="flex justify-start max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
-                            <p>Writer:
-                                <span className="text-textColors-100"> Dave Callaham, Phil Lord, Christopher Miller</span>
-                            </p>
-                        </div>
+                        {writer && writer?.length > 0 && (
+                            <div className="flex justify-start max-w-[775px] mt-8 pb-3 border-b border-[rgba(255,_255,_255,_.20)]">
+                                <p>Escritor: {" "}
+                                    {writer?.map((d, i) => (
+                                        <span
+                                            className="text-textColors-100"
+                                            key={i}>
+                                            {d.name}
+                                            {writer.length -
+                                                1 !==
+                                                i && ", "}
+                                        </span>
+                                    ))}
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </div>
 
