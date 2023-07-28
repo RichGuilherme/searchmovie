@@ -1,6 +1,6 @@
 "use client"
 
-import {  useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
@@ -18,32 +18,32 @@ type AllMoviesAndSeriesProps = {
 }
 export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProps) => {
   const elementRef = useRef<HTMLDivElement>(null)
- 
+
   const [isLoadingElementObserve, setIsLoadingElementObserve] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  
-  const {dataApi, loading} = useDataAllMediaType({filter, mediaType, newCurrentPage: currentPage})
+
+  const { dataApi, loading } = useDataAllMediaType({ filter, mediaType, newCurrentPage: currentPage })
 
 
   // Esse useEffect serve para obeserva quando o usuário chega no final da página, assim adicionando mais um page.Cada page representa um array com 
   // 20 objetos com os dados dos sobre os filmes e series.
   useEffect(() => {
-      const intersectionObserver = new IntersectionObserver(entries => {
-          if (entries.some(entry => entry.isIntersecting) && !isLoadingElementObserve) {
-              setIsLoadingElementObserve(true)
+    const intersectionObserver = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting) && !isLoadingElementObserve) {
+        setIsLoadingElementObserve(true)
 
-              setCurrentPage(currentValue => currentValue + 1)
-          }
-      })
-
-      if (elementRef.current) {
-          intersectionObserver.observe(elementRef.current)
+        setCurrentPage(currentValue => currentValue + 1)
       }
+    })
 
-      return () => intersectionObserver.disconnect()
+    if (elementRef.current) {
+      intersectionObserver.observe(elementRef.current)
+    }
+
+    return () => intersectionObserver.disconnect()
   }, [isLoadingElementObserve])
 
-  
+
   useEffect(() => {
     setIsLoadingElementObserve(false)
   }, [dataApi])
@@ -79,9 +79,24 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
                   className="bg-fullSize min-w-[267px] h-[379px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px]
                              group relative ">
 
-                  {data?.poster_path && data?.poster_path !== "" && (
+                  {data?.poster_path && data?.poster_path !== "" ? (
                     <Image
                       src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
+                      alt="poster"
+                      width={403}
+                      height={502}
+                      priority={true}
+                      style={{
+                        objectFit: 'cover',
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "12px"
+                      }}
+                    >
+                    </Image>
+                  ) : (
+                    <Image
+                      src="/image/no-poster.jpg"
                       alt="poster"
                       width={403}
                       height={502}

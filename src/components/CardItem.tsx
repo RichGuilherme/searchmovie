@@ -20,7 +20,7 @@ export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
                                 className="bg-fullSize min-w-[267px] h-[379px] bg-center bg-no-repeat rounded-[13px]
                                             group relative ">
 
-                                {data?.poster_path && data?.poster_path !== "" && (
+                                {data?.poster_path && data?.poster_path !== "" ? (
                                     <Image
                                         src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
                                         alt="poster"
@@ -35,7 +35,23 @@ export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
                                         }}
                                     >
                                     </Image>
-                                )}
+                                ) : (
+                                    <Image
+                                        src="/image/no-poster.jpg"
+                                        alt="poster"
+                                        width={403}
+                                        height={502}
+                                        priority={true}
+                                        style={{
+                                            objectFit: 'cover',
+                                            width: "100%",
+                                            height: "100%",
+                                            borderRadius: "12px"
+                                        }}
+                                    >
+                                    </Image>
+                                )
+                                }
 
 
                                 <div className="block lg:hidden absolute h-[107px] w-full rounded-[13px] backdrop-blur-[4px] bg-[rgba(0,0,0,0.45)] pl-2 pr-2.5 pt-2
@@ -53,8 +69,8 @@ export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
 
                                     <div className="flex items-center relative font-bold text-lg">
                                         {data?.vote_average?.toFixed(1)}
-                                          
-                                        &nbsp;<AiFillStar size={19} className="fill-yellow-600"/>
+
+                                        &nbsp;<AiFillStar size={19} className="fill-yellow-600" />
                                     </div>
 
                                     <button
