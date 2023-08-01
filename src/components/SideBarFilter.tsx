@@ -32,13 +32,18 @@ export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) =
 
     const handleFilterList = (filtro: string = "") => {
         onFilterList(filtro)
+        if(showAsideMobile === true){
+            setShowAsideMobile(false)
+        }
     }
+
 
     const chekbox = "ml-3 w-5 h-5 rounded-md border-2 border-primary bg-transparent checked:text-primary focus:ring-0 focus:ring-offset-0 cursor-pointer"
 
 
     return (
-        <aside >
+        <aside className={`${showAsideMobile && "w-full h-screen fixed cursor-default z-50 overflow-hidden"}`}
+         >
             {showAsideMobile &&
                 <IoIosClose
                     onClick={() => setShowAsideMobile(!showAsideMobile)}
@@ -95,10 +100,10 @@ export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) =
 
             {/* Botão para subi até o top novamente */}
             {!showAsideMobile &&
-                <span className="fixed bottom-3 left-5 z-40">
+                <span className="fixed bottom-3 left-5 z-20">
                     <BsFilterLeft
                         onClick={() => setShowAsideMobile(!showAsideMobile)}
-                        className="lg:hidden block cursor-pointer"
+                        className="lg:hidden block cursor-pointer border-2  bg-primary rounded-full fill-white"
                         size={39} />
 
                     <div
@@ -108,8 +113,8 @@ export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) =
                                 behavior: 'smooth',
                             })
                         }}
-                        className="border-2 w-9 h-9 flex items-center justify-center rounded-full mt-10
-                  cursor-pointer hover:animate-bounce">
+                        className="border-2 w-9 h-9 flex items-center justify-center rounded-full mt-10 bg-primary
+                           cursor-pointer hover:animate-bounce">
                         <HiArrowUp
                             size={27} />
                     </div>

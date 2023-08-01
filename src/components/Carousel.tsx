@@ -28,6 +28,7 @@ export const Carousel = ({ dataResults, loading, mediaType }: DataResults) => {
     <div
       ref={carouselContainer}
       className="pl-2 text-textColors-200 overflow-hidden ">
+        
       <div
         onClick={() => navigation("left")}
         className="hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-primary hover:bg-white  
@@ -44,7 +45,7 @@ export const Carousel = ({ dataResults, loading, mediaType }: DataResults) => {
         <RxArrowRight size={22} className="group-hover:text-primary" />
       </div>
 
-      <div className="flex flex-row justify-start gap-5 w-full pb-2 overflow-y-hidden md:overflow-visible">
+      <div className="flex flex-row justify-start gap-5 w-full overflow-y-hidden md:overflow-visible">
         <CardItem
           dataResults={dataResults}
           loading={loading}

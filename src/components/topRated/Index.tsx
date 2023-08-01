@@ -31,7 +31,7 @@ export const TopRated = () => {
             </section>
 
             {/* Efeito Smoke*/}
-            <span className="w-full h-48 absolute bottom-[-24px] left-0 bg-[linear-gradient(360deg,_#053ba3_0%,_rgba(0,0,0,0.00)_100%)]  "></span>
+            <span className="w-full h-48 absolute bottom-[-26px] left-0 bg-[linear-gradient(360deg,_#053ba3_0%,_rgba(0,0,0,0.00)_100%)]  "></span>
         </>
     )
 }
