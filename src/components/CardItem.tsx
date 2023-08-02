@@ -8,16 +8,24 @@ import { DataResults } from "@/@types/apiInformation"
 export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
     const { push } = useRouter()
 
+    const handlePush = (event: any, mediaType: string | null | undefined, id: number) => {
+        event.preventDefault()
+        
+      
+        push(`/detalhes?mediaType=${mediaType}&id=${id}`)
+    }
+
     return (
         <>
             {!loading ? (
                 <>
                     {dataResults?.map((data, index) => (
                         index < 20 && (
+  
 
                             <div
                                 key={data.id}
-                                onClick={() => push(`/detalhes?mediaType=${data.media_type === undefined ? mediaType : data.media_type}&id=${data.id}`)}
+                                onClick={(e) => handlePush(e, data.media_type === undefined ? mediaType : data.media_type, data.id)}
                                 className="bg-fullSize min-w-[267px] h-full bg-center bg-no-repeat rounded-[13px]
                                            cursor-pointer relative">
 

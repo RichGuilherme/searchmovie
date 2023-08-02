@@ -27,11 +27,12 @@ export const Header = () => {
         setOpenSearch(show)
     }
 
+
     const handleSearch = (event: any) => {
         event.preventDefault()
 
         if (searchValue === "") return
-
+           
         push(`/results?search=${searchValue}&page=1`)
 
         setOpenSearch(!openSeach)
