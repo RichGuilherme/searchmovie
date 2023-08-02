@@ -39,11 +39,7 @@ export const Header = () => {
         setSearchValue("")
     }
 
-    const handlerPressKey = (event: any) => {
-        if (event.key === "Enter") {
-            handleSearch(event)
-        }
-    }
+   
 
 
     const spanSearch = (
@@ -59,7 +55,7 @@ export const Header = () => {
 
                 <input
                     onChange={(e) => setSearchValue(e.target.value)}
-                    onKeyDown={handlerPressKey}
+                    // onKeyDown={handlerPressKey}
                     value={searchValue}
                     className='text-xl border-none focus:rounded-md outline-none w-full'
                     maxLength={40}
