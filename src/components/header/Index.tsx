@@ -101,7 +101,7 @@ export const Header = () => {
                         <li
                             className={`text-lg font-bold hover:text-primary 
                             ${pathname === "/series" ? "text-primary" : "text-white"}`}>
-                            <Link href="/series">Series</Link>
+                            <Link href="/series">Séries</Link>
                         </li>
 
                         <li
