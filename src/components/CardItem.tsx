@@ -25,12 +25,12 @@ export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
 
                             <div
                                 key={data.id}
-                                onClick={(e) => handlePush(data.media_type === undefined ? mediaType : data.media_type, data.id)}
                                 className="bg-fullSize min-w-[267px] h-full bg-center bg-no-repeat rounded-[13px]
                                            cursor-pointer relative">
 
                                 {data?.poster_path && data?.poster_path !== "" ? (
                                     <Image
+                                        onClick={(e) => handlePush(data.media_type === undefined ? mediaType : data.media_type, data.id)}
                                         src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
                                         alt="poster"
                                         width={403}

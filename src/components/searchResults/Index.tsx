@@ -58,12 +58,12 @@ export const SearchResults = ({ queryProps }: searchResultsProps) => {
 
                                         <div
                                             key={data.id}
-                                            onClick={() => router.push(`/detalhes?mediaType=${data.media_type}&id=${data.id}`)}
                                             className="bg-fullSize min-w-[267px] h-[360px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px]
                              relative cursor-pointer">
 
                                             {data?.poster_path && data?.poster_path !== "" ? (
                                                 <Image
+                                                    onClick={() => router.push(`/detalhes?mediaType=${data.media_type}&id=${data.id}`)}
                                                     src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
                                                     alt="poster"
                                                     width={403}
