@@ -14,7 +14,7 @@ export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
     
         router.push(`/detalhes?mediaType=${mediaType}&id=${id}`)
     }
-
+  
     return (
         <>
             {!loading ? (
