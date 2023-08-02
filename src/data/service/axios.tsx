@@ -12,19 +12,15 @@ const options = {
   }
 };
 
-interface Cache {
-  [url: string]: AxiosResponse;
-}
 
-const cache:Cache = {};
+
+
 export const DatasApi = async (url: string) => {
     try {
-      if (cache[url]) {
-        return cache[url]
-       }
+     
 
        const response = await axios.get(url, options)
-       cache[url] = response.data
+       
 
        return response.data
     } catch(erro) {
