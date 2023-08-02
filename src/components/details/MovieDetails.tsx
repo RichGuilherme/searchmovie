@@ -91,7 +91,7 @@ export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
 
                     <div>
                         <p className="text-xl text-textColors-100 font-light mt-1">{data?.tagline}</p>
-                        <div className="flex gap-[14px] mt-2">
+                        <div className="flex gap-[14px] flex-wrap mt-2">
 
                             {arrayGenres?.map((genre, i) => (
                                 <div
