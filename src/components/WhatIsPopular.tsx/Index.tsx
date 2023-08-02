@@ -14,7 +14,7 @@ export const WhatIsPopular = () => {
     }
 
     return (
-        <section className="relative h-[487px] w-[93%] sm:w-[80%] flex flex-col gap-[18px] mx-auto my-[28px]">
+        <section className="relative h-[487px] max-sm:h-[552px] w-[93%] sm:w-[80%] flex flex-col gap-[18px] mx-auto my-[28px]">
 
             <div className="flex flex-row justify-between items-center w-full px-3">
                 <h1

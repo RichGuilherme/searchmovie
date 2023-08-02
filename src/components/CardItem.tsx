@@ -62,7 +62,7 @@ export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
                                 </span>
 
                                 {/* informações a baixo da imagem */}
-                                <div className="block top-0 left-0 mt-2">
+                                <div className="block mt-2">
                                     <div className="flex flex-col items-start relative font-bold text-lg">
                                         <h3 className="text-[18px] font-semibold truncate pr-2 w-[79%] h-6 font-Righteous">
                                             {data.title === undefined ? data.name : data.title}

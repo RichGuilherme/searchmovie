@@ -21,15 +21,16 @@ export const Header = () => {
     const [openSeach, setOpenSearch] = useState<boolean>(false)
 
     const { push } = useRouter()
-
     const pathname = usePathname()
+
     const onShowSearch = (show: boolean) => {
         setOpenSearch(show)
     }
+
     const handleSearch = (event: any) => {
         event.preventDefault()
 
-        if (!searchValue) return
+        if (searchValue === "") return
 
         push(`/results?search=${searchValue}&page=1`)
 
@@ -50,7 +51,10 @@ export const Header = () => {
             className='hidden flex-row justify-between w-full gap-2 bg-white fixed top-[71px] z-50 py-3 px-5 sm:px-32 font-OpenSans'>
 
             <div className='flex items-center gap-2 w-full'>
-                <SearchIcon color='black' />
+                <div onClick={handleSearch}>
+                    <SearchIcon
+                        color='black' />
+                </div>
 
                 <input
                     onChange={(e) => setSearchValue(e.target.value)}
