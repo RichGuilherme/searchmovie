@@ -1,3 +1,4 @@
+"use client"
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl"
 import useFetch from "@/hooks/useFeatch"
 import { useEffect, useState } from "react"
@@ -16,7 +17,7 @@ export const SearchResults = ({ queryProps }: searchResultsProps) => {
     const numberPage = _data?.total_pages
     const data = _data?.results
 
-    const { push } = useRouter()
+    const router = useRouter()
 
     const handlerPage = (numb: number) => {
         if (numb > 0)
@@ -57,7 +58,7 @@ export const SearchResults = ({ queryProps }: searchResultsProps) => {
 
                                         <div
                                             key={data.id}
-                                            onClick={() => push(`/detalhes?mediaType=${data.media_type}&id=${data.id}`)}
+                                            onClick={() => router.push(`/detalhes?mediaType=${data.media_type}&id=${data.id}`)}
                                             className="bg-fullSize min-w-[267px] h-[360px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px]
                              relative cursor-pointer">
 

@@ -46,7 +46,7 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
     setIsLoadingElementObserve(false)
   }, [dataApi])
 
-  const { push } = useRouter()
+  const router = useRouter()
   const renderedIds = new Set() // Armazena todos os id de filme e series para depois evitar duplicatas.
 
 
@@ -74,7 +74,7 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
 
                 <div
                   key={data.id}
-                  onClick={() => push(`/detalhes?mediaType=${data.media_type === undefined ? mediaType : data.media_type}&id=${data.id}`)}
+                  onClick={() => router.push(`/detalhes?mediaType=${data.media_type === undefined ? mediaType : data.media_type}&id=${data.id}`)}
                   className="bg-fullSize min-w-[267px] h-[360px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px]
                              relative cursor-pointer">
 

@@ -20,7 +20,7 @@ export const Header = () => {
     const [searchValue, setSearchValue] = useState<string>("")
     const [openSeach, setOpenSearch] = useState<boolean>(false)
 
-    const { push } = useRouter()
+    const router = useRouter()
     const pathname = usePathname()
 
     const onShowSearch = (show: boolean) => {
@@ -31,8 +31,7 @@ export const Header = () => {
         event.preventDefault()
 
         if (searchValue === "") return
-        console.log("rodou")
-        push(`/results?search=${searchValue}&page=1`)
+        router.push(`/results?search=${searchValue}&page=1`)
 
         setOpenSearch(!openSeach)
         setSearchValue("")

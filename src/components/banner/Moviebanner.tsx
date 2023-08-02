@@ -1,4 +1,4 @@
-
+"use client"
 import useFetch from "@/hooks/useFeatch"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 export const MovieBanner = () => {
     const [numbRandom, setNumbRandom] = useState<number>(0)
-    const { push } = useRouter()
+    const router = useRouter()
 
     const { data } = useFetch("https://api.themoviedb.org/3/movie/now_playing")
 
@@ -32,7 +32,7 @@ export const MovieBanner = () => {
                     </div>
                     
                     <div
-                        onClick={() => push(`/detalhes?mediaType=movie&id=${data?.results[numbRandom]?.id}`)}
+                        onClick={() => router.push(`/detalhes?mediaType=movie&id=${data?.results[numbRandom]?.id}`)}
                         style={{
                             backgroundImage: `url(https://image.tmdb.org/t/p/original/${arrayUrlMovie})`
                         }}
