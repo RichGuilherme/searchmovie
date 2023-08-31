@@ -58,8 +58,8 @@ export const SearchResults = ({ queryProps }: searchResultsProps) => {
 
                                         <div
                                             key={data.id}
-                                            className="bg-fullSize min-w-[267px] h-[360px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px]
-                             relative cursor-pointer">
+                                            className="bg-fullSize min-w-[267px] h-[360px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px] 
+                                            hover:scale-95 transition relative cursor-pointer ">
 
                                             {data?.poster_path && data?.poster_path !== "" ? (
                                                 <Image

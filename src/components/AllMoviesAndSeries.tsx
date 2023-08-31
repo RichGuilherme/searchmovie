@@ -16,6 +16,7 @@ type AllMoviesAndSeriesProps = {
 }
 export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProps) => {
   const elementRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   const [isLoadingElementObserve, setIsLoadingElementObserve] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
@@ -46,7 +47,7 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
     setIsLoadingElementObserve(false)
   }, [dataApi])
 
-  const router = useRouter()
+
   const renderedIds = new Set() // Armazena todos os id de filme e series para depois evitar duplicatas.
 
 
@@ -74,7 +75,7 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
 
                 <div
                   key={data.id}
-                  className="bg-fullSize min-w-[267px] h-[360px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px]
+                  className="bg-fullSize min-w-[267px] h-[360px] max-sm:min-w-0 max-sm:h-auto bg-center bg-no-repeat rounded-[13px] hover:scale-95 transition
                              relative cursor-pointer">
 
                   {data?.poster_path && data?.poster_path !== "" ? (

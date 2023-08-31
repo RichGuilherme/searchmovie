@@ -7,14 +7,9 @@ import { AiFillStar, AiOutlineHeart } from "react-icons/ai"
 import { CarouselLoading } from "./CarouselLoading"
 import { DataResults } from "@/@types/apiInformation"
 
-export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
+export const CardItem = ({ dataResults, loading, mediaType}: DataResults) => {
     const router = useRouter()
 
-    const handlePush = (mediaType: string | null | undefined, id: number) => {
-    
-        router.push(`/detalhes?mediaType=${mediaType}&id=${id}`)
-    }
-  
     return (
         <>
             {!loading ? (
@@ -25,12 +20,12 @@ export const CardItem = ({ dataResults, loading, mediaType }: DataResults) => {
 
                             <div
                                 key={data.id}
-                                className="bg-fullSize min-w-[267px] h-full bg-center bg-no-repeat rounded-[13px]
+                                className="bg-fullSize min-w-[267px] h-full bg-center bg-no-repeat rounded-[13px] hover:scale-95 transition
                                            cursor-pointer relative">
 
                                 {data?.poster_path && data?.poster_path !== "" ? (
                                     <Image
-                                        onClick={(e) => handlePush(data.media_type === undefined ? mediaType : data.media_type, data.id)}
+                                        onClick={(e) => router.push(`/detalhes?mediaType=${data.media_type}&id=${data.id}`)}
                                         src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
                                         alt="poster"
                                         width={403}
