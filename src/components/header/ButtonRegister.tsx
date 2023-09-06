@@ -1,12 +1,24 @@
 import Link from "next/link"
 
-export const ButtonRegister = () => {
+type RegisterProps = {
+  link: string
+  text: string
+  backgroundColor: string
+  textColor: string
+}
+
+export const ButtonRegister = ({link, backgroundColor, textColor, text}: RegisterProps) => {
   return (
-    // <Link href="/register" prefetch={false}>
-      <button className="flex justify-center items-center w-[138px] h-[38px] ml-5
-       bg-textColors-200 text-primary text-lg cursor-pointer rounded-[5px] border-0">
-         Registrar
+    <Link href={`/${link}`}>
+      <button 
+        style={{
+          backgroundColor: `${backgroundColor}`,
+          color: `${textColor}`
+        }}
+        className="flex justify-center items-center h-[38px] px-7 ml-5
+          text-lg font-medium cursor-pointer rounded-[5px] border-0">
+         {`${text}`}
       </button>
-    // </Link>
+    </Link>
   )
 }

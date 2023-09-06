@@ -7,7 +7,6 @@ import { IoIosClose, IoMdClose } from 'react-icons/io'
 import { IoMenuOutline } from "react-icons/io5"
 
 import { TagInputSearchMovie } from './InputSearchMovie'
-import { ButtonLogin } from './ButtonLogin'
 import { ButtonRegister } from './ButtonRegister'
 import { Logo } from '../logo'
 import { UserAtivited } from './UserAtivited'
@@ -125,8 +124,18 @@ export const Header = () => {
 
                     <div className='hidden lg:flex items-center'>
                         {/* <UserAtivited />  */}
-                        <ButtonLogin />
-                        <ButtonRegister />
+                        <ButtonRegister 
+                        text='Entrar'
+                        link='sign-in'
+                        backgroundColor='#ffff'
+                        textColor='#053ba3'/>
+                        
+                        <ButtonRegister 
+                        text='Criar Conta'
+                        link='sign-up'
+                        backgroundColor='#053ba3'
+                        textColor='#ffff'/>
+
                     </div>
                 </div>
 
