@@ -25,7 +25,7 @@ export const CardItem = ({ dataResults, loading, mediaType}: DataResults) => {
 
                                 {data?.poster_path && data?.poster_path !== "" ? (
                                     <Image
-                                        onClick={(e) => router.push(`/detalhes?mediaType=${data.media_type}&id=${data.id}`)}
+                                        onClick={(e) => router.push(`/detalhes?mediaType=${data.media_type || mediaType}&id=${data.id}`)}
                                         src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
                                         alt="poster"
                                         width={403}
