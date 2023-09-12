@@ -1,8 +1,5 @@
+import { inputSearchProps } from "@/@types/inputSearch"
 import { IoMdSearch } from "react-icons/io"
-
-type inputSearchProps = {
-    onShowSearch: (any:boolean) => void
-}
 
 export const TagInputSearchMovie = ({onShowSearch}: inputSearchProps ) => {
     const showSearchOpen = false

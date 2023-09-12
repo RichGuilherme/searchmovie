@@ -1,15 +1,9 @@
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic';
+import { videoPopUpProps } from '@/@types/videoProps';
 
-const ReactPlayer = dynamic(() => import('react-player/youtube'), { ssr: false });
+const ReactPlayer = dynamic(() => import('react-player/youtube'), { ssr: false })
 
-type videoPopUpProps = {
-  videoKey: string
-  show: boolean
-  setShow: Dispatch<SetStateAction<boolean>>;
-  setVideoKey: Dispatch<SetStateAction<string>>;
-}
 
 export const  VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUpProps) => {
   const hiddenVideo = () => {

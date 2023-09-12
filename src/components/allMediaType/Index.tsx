@@ -3,8 +3,9 @@
 import { useState } from "react"
 import { AllMoviesAndSeries } from "../AllMoviesAndSeries"
 import { SideBarFilter } from "../SideBarFilter"
+import { AllMediaTypeProps } from "@/@types/apiInformation"
 
-type AllMediaTypeProps = {mediaType: string}
+
 export const AllMediaType = ({mediaType}: AllMediaTypeProps) => {
   const [filterLists, setFilterList] = useState("popularity.desc")
    

@@ -7,13 +7,9 @@ import { useRouter } from "next/navigation";
 
 import { CarouselLoading } from "./CarouselLoading";
 import { useDataAllMediaType } from "@/hooks/useDataAllMediaType";
+import { AllMoviesAndSeriesProps } from "@/@types/apiInformation";
 
 
-
-type AllMoviesAndSeriesProps = {
-  mediaType: string
-  filter: string
-}
 export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProps) => {
   const elementRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
