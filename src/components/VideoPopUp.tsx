@@ -23,10 +23,11 @@ export const  VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUp
 
       <div
         className='aspect-video w-[800px] bg-white scale-[1] z-40'>
-
         <span
           onClick={() => hiddenVideo()}
-          className='absolute right-0 -top-8 text-xl cursor-pointer hover:text-textColors-100'>Fechar</span>
+          className='absolute right-0 -top-8 text-xl cursor-pointer hover:text-textColors-100'>
+          Fechar
+        </span>
 
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${videoKey}`}

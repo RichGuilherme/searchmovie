@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
-import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai"
 
@@ -17,35 +17,27 @@ export const CardItem = ({ dataResults, loading, mediaType}: DataResults) => {
                     {dataResults?.map((data, index) => (
                         index < 20 && (
   
-
                             <div
                                 key={data.id}
-                                className="bg-fullSize min-w-[267px] h-full bg-center bg-no-repeat rounded-[13px] hover:scale-95 transition
-                                           cursor-pointer relative">
+                                className="bg-fullSize min-w-[267px] h-full bg-center bg-no-repeat rounded-[13px] 
+                                hover:scale-95 transition cursor-pointer relative">
 
                                 {data?.poster_path && data?.poster_path !== "" ? (
-                                    <Image
-                                        onClick={(e) => router.push(`/detalhes?mediaType=${data.media_type || mediaType}&id=${data.id}`)}
-                                        src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
+                                    <img
+                                        onClick={() => router.push(`/detalhes?mediaType=${data.media_type || mediaType}&id=${data.id}`)}
+                                        src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
                                         alt="poster"
-                                        width={403}
-                                        height={502}
-                                        priority={true}
                                         style={{
                                             objectFit: 'cover',
                                             width: "100%",
                                             maxHeight: "360px",
                                             borderRadius: "12px"
-                                        }}
-                                    >
-                                    </Image>
+                                        }}>
+                                    </img>
                                 ) : (
-                                    <Image
+                                    <img
                                         src="/image/no-poster.jpg"
                                         alt="poster"
-                                        width={403}
-                                        height={502}
-                                        priority={true}
                                         style={{
                                             objectFit: 'cover',
                                             width: "100%",
@@ -53,9 +45,8 @@ export const CardItem = ({ dataResults, loading, mediaType}: DataResults) => {
                                             borderRadius: "12px"
                                         }}
                                     >
-                                    </Image>
-                                )
-                                }
+                                    </img>
+                                )}
                                 
                                 {/* icone de coração no topo da imagem */}
                                 <span className="absolute top-1 right-3">

@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import {  useState } from "react"
 import { AiOutlineHeart } from "react-icons/ai"
 import useFetch from "@/hooks/useFeatch"
-import Image from "next/image"
 import { CiPlay1 } from "react-icons/ci"
 
 import { topCastProps } from "@/@types/apiInformation"
@@ -28,16 +28,17 @@ export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
     const _videoKey = videoData?.results[0]?.key
 
     const arrayGenres = data?.genres
-
+    
 
     return (
         <section>
+            {/* Banner  */}
             <div className="absolute w-full h-screen -z-30">
                 {data?.backdrop_path && data?.backdrop_path !== "" && (
 
                     <div
                         style={{
-                            backgroundImage: `url(https://image.tmdb.org/t/p/original/${data?.backdrop_path})`
+                            backgroundImage: `url(https://image.tmdb.org/t/p/original${data?.backdrop_path})`
                         }}
                         className="w-full h-full absolute top-0 bg-no-repeat bg-[cover] opacity-10 " >
                     </div>
@@ -49,13 +50,10 @@ export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
              gap-12 w-full max-w-[1200px] h-full mx-auto pt-[126px] ">
 
                 <div className="min-w-[403px] max-w-[403px] w-full h-[502px]">
-                    {!loading ? (
-                        <Image
-                            src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
+                    {!loading && data?.backdrop_path && data?.backdrop_path ? (
+                        <img
+                            src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
                             alt="poster"
-                            width={403}
-                            height={502}
-                            priority={true}
                             style={{
                                 objectFit: 'cover',
                                 width: "100%",
@@ -63,13 +61,14 @@ export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
                                 borderRadius: "12px"
                             }}
                         >
-                        </Image>
+                        </img>
                     ) : (
                         <div className="max-w-[403px] min-w-[403px] w-2/4 h-[502px] rounded-xl bg-[rgba(255,255,255,0.25)]"></div>
                     )}
 
                 </div>
 
+               {/* Informações sobre o filme */}
                 <div className="max-lg:mx-4">
                     <div className="flex justify-between sm:flex-row flex-col">
                         <h1 className="text-4xl font-extrabold font-Nunito">
