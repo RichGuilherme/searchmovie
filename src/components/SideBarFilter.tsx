@@ -1,4 +1,5 @@
 
+import { SideBarFilterProps } from "@/@types/sideBarFilter"
 import { useGenres } from "@/context/genresContext"
 import useFetch from "@/hooks/useFeatch"
 import { useState } from "react"
@@ -7,10 +8,7 @@ import { HiArrowUp } from "react-icons/hi"
 import { BsFilterLeft } from "react-icons/bs"
 import { IoIosClose } from "react-icons/io"
 
-type SideBarFilterProps = {
-    mediaType: string
-    onFilterList: (filter: string) => void
-}
+
 export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) => {
     const [showFilterGenres, setShowFilterGenres] = useState(false)
     const [showAsideMobile, setShowAsideMobile] = useState(false)

@@ -1,18 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
 import { CarouselLoading } from "./CarouselLoading";
 import { useDataAllMediaType } from "@/hooks/useDataAllMediaType";
+import { AllMoviesAndSeriesProps } from "@/@types/apiInformation";
 
-
-type AllMoviesAndSeriesProps = {
-  mediaType: string
-  filter: string
-}
 
 export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProps) => {
   const elementRef = useRef<HTMLDivElement>(null)
@@ -79,13 +75,10 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
                              relative cursor-pointer">
 
                   {data?.poster_path && data?.poster_path !== "" ? (
-                    <Image
+                    <img
                       onClick={() => router.push(`/detalhes?mediaType=${data.media_type === undefined ? mediaType : data.media_type}&id=${data.id}`)}
-                      src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
                       alt="poster"
-                      width={403}
-                      height={502}
-                      priority={true}
                       style={{
                         objectFit: 'cover',
                         width: "100%",
@@ -93,14 +86,11 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
                         borderRadius: "12px"
                       }}
                     >
-                    </Image>
+                    </img>
                   ) : (
-                    <Image
+                    <img
                       src="/image/no-poster.jpg"
                       alt="poster"
-                      width={403}
-                      height={502}
-                      priority={true}
                       style={{
                         objectFit: 'cover',
                         width: "100%",
@@ -108,7 +98,7 @@ export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProp
                         borderRadius: "12px"
                       }}
                     >
-                    </Image>
+                    </img>
                   )}
 
 

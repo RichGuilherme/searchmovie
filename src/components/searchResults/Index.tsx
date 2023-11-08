@@ -1,15 +1,15 @@
 "use client"
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl"
+import { searchResultsProps } from "@/@types/apiInformation"
 import useFetch from "@/hooks/useFeatch"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai"
 import { useRouter } from "next/navigation"
+
 import { CarouselLoading } from "../CarouselLoading"
 
-type searchResultsProps = {
-    queryProps: string | null
-}
+
 export const SearchResults = ({ queryProps }: searchResultsProps) => {
     const [currentPage, setCurrentPage] = useState(1)
     const { data: _data, loading } = useFetch(`https://api.themoviedb.org/3/search/multi?query=${queryProps}&page=${currentPage}`)

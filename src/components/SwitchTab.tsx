@@ -1,22 +1,18 @@
+import { dataSwitchTag } from "@/@types/switchTag";
 import { useState } from "react";
-
-type dataSwitchTag = {
-    typeData: Array<string>
-    onTabChange: (any:string) => void
-}
 
 
 export const SwitchTab = ({ typeData, onTabChange }: dataSwitchTag) => {
-    const [selectedTab, setSelectedTab] = useState<number>(0);
-    const [left, setLeft] = useState<number>(0);
+    const [selectedTab, setSelectedTab] = useState<number>(0)
+    const [left, setLeft] = useState<number>(0)
 
     const activeTab = (tab:string, index:number) => {
-        setLeft(index * 100);
+        setLeft(index * 100)
         setTimeout(() => {
-            setSelectedTab(index);
-        }, 300);
+            setSelectedTab(index)
+        }, 300)
         onTabChange(tab)
-    };
+    }
 
     return (
         <div className="relative ">

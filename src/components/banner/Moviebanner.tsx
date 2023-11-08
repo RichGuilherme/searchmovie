@@ -10,7 +10,7 @@ export const MovieBanner = () => {
 
     const { data  } = useFetch("https://api.themoviedb.org/3/movie/now_playing")
 
-    const UrlMovie = data?.results[numbRandom]?.backdrop_path
+    const UrlMovie = data?.results[numbRandom]?.backdrop_path 
 
 
     useEffect(() => {
@@ -22,6 +22,8 @@ export const MovieBanner = () => {
     return (
         <div className="relative">
                 <>
+
+                    {/* imagem de fundo do banner com blur */}
                     <div className="bg-black overflow-hidden">
                         <div
                             style={{    

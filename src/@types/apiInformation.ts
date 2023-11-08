@@ -62,7 +62,7 @@ export type ApiResponse = {
 export type DataResults = {
   dataResults?: MovieData[]
   loading: boolean | null
-  mediaType?: string  | null // Queria essa opção para no caso de não tiver o tipo (movie ou show) nos dados retornado da API
+  mediaType?: string  | null // essa opção para no caso de não tiver o tipo (movie ou show) nos dados retornado da API
 }
 
 export type DetailsProps = {
@@ -74,4 +74,17 @@ export type topCastProps = {
   cast?: DataCast[]
   crew?: DataCrew[]
   loadingCrew: boolean | null
+}
+
+export type AllMediaTypeProps = {
+  mediaType: string
+}
+
+export type searchResultsProps = {
+  queryProps: string | null
+}
+
+export type AllMoviesAndSeriesProps = {
+  mediaType: string
+  filter: string
 }

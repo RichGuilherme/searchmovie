@@ -1,15 +1,9 @@
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic';
+import { videoPopUpProps } from '@/@types/videoProps';
 
-const ReactPlayer = dynamic(() => import('react-player/youtube'), { ssr: false });
+const ReactPlayer = dynamic(() => import('react-player/youtube'), { ssr: false })
 
-type videoPopUpProps = {
-  videoKey: string
-  show: boolean
-  setShow: Dispatch<SetStateAction<boolean>>;
-  setVideoKey: Dispatch<SetStateAction<string>>;
-}
 
 export const  VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUpProps) => {
   const hiddenVideo = () => {
@@ -29,10 +23,11 @@ export const  VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUp
 
       <div
         className='aspect-video w-[800px] bg-white scale-[1] z-40'>
-
         <span
           onClick={() => hiddenVideo()}
-          className='absolute right-0 -top-8 text-xl cursor-pointer hover:text-textColors-100'>Fechar</span>
+          className='absolute right-0 -top-8 text-xl cursor-pointer hover:text-textColors-100'>
+          Fechar
+        </span>
 
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${videoKey}`}
