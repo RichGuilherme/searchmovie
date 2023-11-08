@@ -24,6 +24,7 @@ export default function Register() {
               <h1 className=" mb-7 text-6xl font-bold">
                 FilmesLand
               </h1>
+              
               <p className="max-w-[720px] text-3xl font-medium text-center leading-normal">
                 Encontre o filme ou série que você tanto procura e descubra outras opções similares
               </p>

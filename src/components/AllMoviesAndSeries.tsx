@@ -9,11 +9,11 @@ import { CarouselLoading } from "./CarouselLoading";
 import { useDataAllMediaType } from "@/hooks/useDataAllMediaType";
 
 
-
 type AllMoviesAndSeriesProps = {
   mediaType: string
   filter: string
 }
+
 export const AllMoviesAndSeries = ({ mediaType, filter }: AllMoviesAndSeriesProps) => {
   const elementRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
