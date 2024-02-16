@@ -1,17 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import useFetch from "@/hooks/useFeatch";
+import { useAxios } from "@/hooks/useAxios";
 import { SwitchTab } from "../SwitchTab";
 import { Carousel } from "../Carousel";
+import axiosInstancia from "@/data/service/axios";
 
 
 export const WhatIsPopular = () => {
     const [endpoint, setEndpoint] = useState<string>("movie")
 
-    const { data, loading } = useFetch(`https://api.themoviedb.org/3/${endpoint}/popular`)
-    const onTabChange = (tab: string): void => {
-        setEndpoint(tab === "Filmes" ? "movie" : "tv")
-    }
+    const { data, loading } = useAxios({
+        axiosInstance: axiosInstancia,
+        method: "GET",
+        url: `${endpoint}/popular`,
+        requestConfig: {
+           params: {
+             language: 'pt-BR', 
+           },
+        }
+     })
+    
+     const onTabChange = (tab: string): void => {
+         setEndpoint(tab === "Filmes" ? "movie" : "tv")
+     }
+
 
     return (
         <section className="relative h-[487px] max-sm:h-[552px] w-[93%] sm:w-[80%] flex flex-col gap-[18px] mx-auto my-[28px]">

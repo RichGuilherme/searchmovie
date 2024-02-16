@@ -1,17 +1,30 @@
-import useFetch from "@/hooks/useFeatch"
+"use client"
+
 import { MovieDetails } from "./MovieDetails"
 import { TopCast } from "./TopCast"
 import { Recommendations } from "./Recommendations"
 import { useParamsDetails } from "@/context/paramsDetailsContext"
-import { useEffect } from "react"
 import { useSearchParams } from "next/navigation"
+import { useEffect } from "react"
+import { useAxios } from "@/hooks/useAxios"
+import axiosInstancia from "@/data/service/axios"
 
 
 export const Details = () => {
   const detailsMovieParams = useSearchParams()
   const mediaTypeParams = detailsMovieParams?.get('mediaType')
   const idParams = detailsMovieParams?.get('id')
-  const { data: creditsData, loading: creditsLoading } = useFetch(`https://api.themoviedb.org/3/${mediaTypeParams}/${idParams}/credits`)
+
+  const {data: creditsData, loading: creditsLoading, error} = useAxios({
+     axiosInstance: axiosInstancia,
+     method: "GET",
+     url: `${mediaTypeParams}/${idParams}/credits`,
+     requestConfig: {
+        params: {
+          language: 'pt-BR', 
+        },
+     }
+  })
 
   const { setMediaTypeParams, setIdParams} = useParamsDetails()
  
@@ -21,10 +34,10 @@ export const Details = () => {
       top: 0,
     })
    
-    setIdParams(idParams || "")
-    setMediaTypeParams(mediaTypeParams || "")
+    setIdParams(idParams)
+    setMediaTypeParams(mediaTypeParams)
 
-  }, [idParams, mediaTypeParams, setIdParams, setMediaTypeParams]) // move a página para cima ao ser recagada
+  }, [idParams, mediaTypeParams]) // move a página para cima ao ser recagada
 
 
 
