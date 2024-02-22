@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ApiResponse } from "../@types/apiInformation";
-import { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 
 type useAxiosProps = {
@@ -11,6 +11,8 @@ type useAxiosProps = {
 }
 
 
+type AxiosMethod = 'get' | 'post' | 'put' | 'delete';
+
 export const useAxios = ({ axiosInstance, method, url, requestConfig }: useAxiosProps) => {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState<ApiResponse | null>(null)
@@ -20,20 +22,23 @@ export const useAxios = ({ axiosInstance, method, url, requestConfig }: useAxios
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiosInstance[method.toLowerCase()](url, {
+                const response = await axiosInstance[method.toLowerCase() as AxiosMethod](url, {
                     ...requestConfig,
                 })
 
                 setData(response.data)
             } catch (error) {
-                setError(error.message)
+                if (axios.isAxiosError(error)) {
+                    setError(error.message)
+                }
             } finally {
                 setLoading(false)
             }
         }
 
         fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url])
 
-    return {data, loading, error}
+    return { data, loading, error }
 }
