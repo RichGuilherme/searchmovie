@@ -18,8 +18,7 @@ export const Trending = () => {
            },
         }
      })
-
-
+     
     const onTabChange = (tab:string):void => {
         setEndpoint(tab === "Hoje" ? "day" : "week")
     };
