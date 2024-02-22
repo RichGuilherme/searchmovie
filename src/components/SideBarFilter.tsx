@@ -1,12 +1,14 @@
 
 import { SideBarFilterProps } from "@/@types/sideBarFilter"
-import { useGenres } from "@/context/genresContext"
-import useFetch from "@/hooks/useFeatch"
+
+import { useAxios } from "@/hooks/useAxios"
 import { useState } from "react"
 import { RiArrowDownSFill, RiArrowRightSFill } from "react-icons/ri"
 import { HiArrowUp } from "react-icons/hi"
 import { BsFilterLeft } from "react-icons/bs"
 import { IoIosClose } from "react-icons/io"
+import axiosInstancia from "@/data/service/axios"
+import { useGenres } from "@/context/genresContext"
 
 
 export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) => {
@@ -14,7 +16,17 @@ export const SideBarFilter = ({ onFilterList, mediaType }: SideBarFilterProps) =
     const [showAsideMobile, setShowAsideMobile] = useState(false)
     const [genres, setGenres] = useState<Array<number>>([])
 
-    const { data } = useFetch(`https://api.themoviedb.org/3/genre/${mediaType}/list`)
+    const { data } = useAxios({
+        axiosInstance: axiosInstancia,
+        method: "GET",
+        url: `genre/${mediaType}/list`,
+        requestConfig: {
+           params: {
+             language: 'pt-BR', 
+           },
+        }
+     })
+ 
 
     const { updateSelectedGenres } = useGenres()
 

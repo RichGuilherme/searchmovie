@@ -7,11 +7,12 @@ import { IoIosClose, IoMdClose } from 'react-icons/io'
 import { IoMenuOutline } from "react-icons/io5"
 
 import { TagInputSearchMovie } from './InputSearchMovie'
-import { ButtonLogin } from './ButtonLogin'
-import { ButtonRegister } from './ButtonRegister'
+
 import { Logo } from '../logo'
 import { UserAtivited } from './UserAtivited'
 import { SearchIcon } from '../icons/Search-icon'
+import { ButtonLogin } from './ButtonLogin'
+import { ButtonRegister } from './ButtonRegister'
 
 
 

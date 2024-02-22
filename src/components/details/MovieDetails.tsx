@@ -1,7 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import {  useState } from "react"
 import { AiOutlineHeart } from "react-icons/ai"
-import useFetch from "@/hooks/useFeatch"
 import { CiPlay1 } from "react-icons/ci"
 
 import { topCastProps } from "@/@types/apiInformation"
@@ -9,6 +7,8 @@ import { HoursAndMinutes } from "@/utils/hoursAndMinutes"
 import { VideoPopUp } from "../VideoPopUp"
 import { formatDate } from "@/utils/formatData"
 import { useParamsDetails } from "@/context/paramsDetailsContext"
+import axiosInstancia from "@/data/service/axios"
+import { useAxios } from "@/hooks/useAxios"
 
 
 export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
@@ -17,8 +17,28 @@ export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
     const [videoKey, setVideoKey] = useState<string>("")
     const [videoShow, setVideoShow] = useState<boolean>(false)
 
-    const { data, loading } = useFetch(`https://api.themoviedb.org/3/${mediaTypeParams}/${idParams}`)
-    const { data: videoData, loading: videoLoading } = useFetch(`https://api.themoviedb.org/3/${mediaTypeParams}/${idParams}/videos`)
+    const { data, loading } = useAxios({
+        axiosInstance: axiosInstancia,
+        method: "GET",
+        url: `${mediaTypeParams}/${idParams}`,
+        requestConfig: {
+           params: {
+             language: 'pt-BR', 
+           },
+        }
+     })
+
+    const { data: videoData, loading: videoLoading } = useAxios({
+        axiosInstance: axiosInstancia,
+        method: "GET",
+        url: `${mediaTypeParams}/${idParams}/videos`,
+        requestConfig: {
+            params: {
+              language: 'pt-BR', 
+            },
+         }
+     })
+    
 
     const director = crew?.filter((f) => f.job === "Director");
     const writer = crew?.filter(
@@ -51,6 +71,7 @@ export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
 
                 <div className="min-w-[403px] max-w-[403px] w-full h-[502px]">
                     {!loading && data?.backdrop_path && data?.backdrop_path ? (
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                             src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
                             alt="poster"

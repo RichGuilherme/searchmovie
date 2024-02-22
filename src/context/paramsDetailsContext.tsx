@@ -1,17 +1,17 @@
 "use client"
 
 import { ProviderProps } from "@/@types/contextApi"
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 type ParamsDetailsContextType = {
-    idParams: string
-    mediaTypeParams: string
-    setIdParams: React.Dispatch<React.SetStateAction<string>> 
-    setMediaTypeParams: React.Dispatch<React.SetStateAction<string>> 
+    idParams: string | null
+    mediaTypeParams: string | null
+    setIdParams: React.Dispatch<React.SetStateAction<string | null>>
+    setMediaTypeParams: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 const paramsDetailsContext = createContext<ParamsDetailsContextType>({
-    idParams: "" ,
+    idParams: "",
     mediaTypeParams: "",
     setIdParams: () => { },
     setMediaTypeParams: () => { }
@@ -20,21 +20,23 @@ const paramsDetailsContext = createContext<ParamsDetailsContextType>({
 export const useParamsDetails = () => useContext(paramsDetailsContext)
 
 
-export const ParamsDetailsProvider = ({children}: ProviderProps) => {
-    const [idParams, setIdParams] = useState("")
-    const [mediaTypeParams, setMediaTypeParams] = useState("")
+export const ParamsDetailsProvider = ({ children }: ProviderProps) => {
+    const [idParams, setIdParams] = useState<string | null>("")
+    const [mediaTypeParams, setMediaTypeParams] = useState<string | null>("")
+
+    const paramsDetailsValue = {
+        idParams,
+        mediaTypeParams,
+        setIdParams,
+        setMediaTypeParams
+    };
 
 
     return (
-        <paramsDetailsContext.Provider 
-         value={{
-            idParams,
-            mediaTypeParams,
-            setIdParams,
-            setMediaTypeParams
-         }}>
+        <paramsDetailsContext.Provider
+            value={paramsDetailsValue}>
 
-         {children}
+            {children}
         </paramsDetailsContext.Provider>
     )
 }

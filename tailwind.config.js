@@ -28,6 +28,9 @@ module.exports = {
     backgroundSize: {
       fullSize : "100% 100%"
     },
+    backgroundImage: {
+        backgroundRegister: "linear-gradient(rgba(0, 0, 0, .93), rgba(0, 0, 0, .93)), url(/image/movie-poster.jpg)"
+    }
   },
   plugins: [require("@tailwindcss/forms")],
 }

@@ -1,12 +1,24 @@
 import { SwitchTab } from "../SwitchTab"
 import { Carousel } from "../Carousel"
 import { useState } from "react"
-import useFetch from "@/hooks/useFeatch"
+import { useAxios } from "@/hooks/useAxios"
+import axiosInstancia from "@/data/service/axios"
 
 export const TopRated = () => {
     const [endpoint, setEndpoint] = useState<string>("movie")
 
-    const { data, loading } = useFetch(`https://api.themoviedb.org/3/${endpoint}/top_rated`)
+    
+    const { data, loading } = useAxios({
+        axiosInstance: axiosInstancia,
+        method: "GET",
+        url: `${endpoint}/top_rated`,
+        requestConfig: {
+           params: {
+             language: 'pt-BR', 
+           },
+        }
+     })
+   
     const onTabChange = (tab: string): void => {
         setEndpoint(tab === "Filmes" ? "movie" : "tv")
     }
