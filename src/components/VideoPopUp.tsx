@@ -1,20 +1,34 @@
 
 import dynamic from 'next/dynamic';
 import { videoPopUpProps } from '@/@types/videoProps';
+import { useEffect } from 'react';
 
 const ReactPlayer = dynamic(() => import('react-player/youtube'), { ssr: false })
 
 
-export const  VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUpProps) => {
+export const VideoPopUp = ({ videoKey, show, setShow, setVideoKey }: videoPopUpProps) => {
   const hiddenVideo = () => {
     setShow(false)
     setVideoKey("")
   }
 
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+
+  }, [show])
+
   return (
     <div
       style={{ visibility: `${show ? "visible" : "hidden"}` }}
-      className='flex justify-center items-center w-full h-screen fixed top-0 left-0'>
+      className='flex justify-center items-center w-full h-screen fixed top-0 left-0 z-50'>
 
       <div
         onClick={() => hiddenVideo()}
