@@ -55,7 +55,7 @@ export const SearchResults = ({ queryProps }: searchResultsProps) => {
                 </div>
 
 
-                <section className="w-[83%] max-sm:w-full mx-auto mt-36  relative  backdrop-blur-[3px] bg-[rgba(0,_0,_0,_.25)]">
+                <section className="w-[83%] max-sm:w-full mx-auto pt-36  relative  backdrop-blur-[3px] bg-[rgba(0,_0,_0,_.25)]">
                     <h1 className="text-2xl font-medium font-Nunito pl-6 pt-4">
                         Resultados da pesquisa para &ldquo;{`${queryProps}`}&rdquo;
                     </h1>
