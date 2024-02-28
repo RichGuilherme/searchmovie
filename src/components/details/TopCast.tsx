@@ -7,7 +7,7 @@ export const TopCast = ({ cast, loadingCrew }: topCastProps) => {
     <section className="w-[76%] mx-auto mt-14">
       <h2 className="text-3xl font-medium font-Nunito">Top Atores</h2>
 
-      <div className="flex flex-row gap-14 w-full mt-6 overflow-hidden">
+      <div className="flex flex-row gap-14 w-full mt-6 overflow-auto">
         {!loadingCrew ? (
           <>
             {cast && cast.map((actors, i) => (
