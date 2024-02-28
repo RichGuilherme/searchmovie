@@ -1,5 +1,5 @@
-import { SwitchTab } from "../SwitchTab"
-import { Carousel } from "../Carousel"
+import { SwitchTab } from "../../SwitchTab"
+import { Carousel } from "../../Carousel"
 import { useState } from "react"
 import { useAxios } from "@/hooks/useAxios"
 import axiosInstancia from "@/data/service/axios"
