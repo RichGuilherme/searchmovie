@@ -68,8 +68,8 @@ export const MovieDetails = ({ crew, loadingCrew }: topCastProps) => {
 
             <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start
              gap-12 w-full max-w-[1200px] h-full mx-auto pt-[126px] ">
-
-                <div className="min-w-[403px] max-w-[403px] w-full h-[502px]">
+ 
+                <div className="min-w-[403px] max-w-[403px] w-full h-[502px] sm:px-0 px-6">
                     {!loading && data?.backdrop_path && data?.backdrop_path ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
