@@ -1,10 +1,5 @@
 import '../globals.css'
 
-export const metadata = {
-  title: 'Cadastrar',
-  description: 'Parte de criação e login de usuário',
-}
-
 
 export default function RootLayout({
   children,
@@ -13,10 +8,8 @@ export default function RootLayout({
 }) {
 
   return (
-    <html lang="pt-br">
-      <body >
-          {children}
-      </body>
-    </html>
+    <>
+      {children}
+    </>
   )
 }

@@ -5,13 +5,12 @@ export const authOptions: NextAuthOptions = {
   providers: [
     Credentials({
       name: "Credentials",
+      
       credentials: {
         email: { label: "Email" },
         password: { label: "Password" },
       },
       authorize(credentials, req) {
-
-
         if (
           credentials?.email === "admin@example.com" &&
           credentials.password === "admin"

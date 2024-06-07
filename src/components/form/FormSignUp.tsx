@@ -9,14 +9,55 @@ import { MdAlternateEmail } from "react-icons/md";
 import { FacebookIcon } from "@/components/icons/facebook-icon"
 import { GoogleIcon } from "@/components/icons/google-icon"
 
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod"
+
+
+const schemaRegister = z.object({
+  username: z.string().min(5, "Username dever possuir no mínimo 5 caracteres!"),
+  email: z.string().email("Email invalido!"),
+  password: z.string().min(5, "Senha curta demais!"),
+  confirmPassword: z.string()
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Senhas diferentes!",
+  path: ["confirmPassword"]
+});
+
+type PropsForm = z.infer<typeof schemaRegister>
 
 export const FormSignUp = () => {
   const pathname = usePathname()
   const [showPassword, setShowPassoword] = useState(false)
+  const [showPasswordConfirm, setShowPassowordConfirm] = useState(false)
+
+  const {
+    handleSubmit,
+    register,
+    setError,
+    formState: { errors, isSubmitting }
+  } = useForm({
+    resolver: zodResolver(schemaRegister),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    }
+  })
+
+  const handleRegisterForm = async (data: PropsForm) => {
+    const email = data.email
+    const password = data.password
+    const username = data.username
+
+    console.log(email, password, username)
+  }
 
   return (
-    <section className="w-full h-full flex flex-col items-center justify-center mt-85 px-[358px] bg-dark text-textColors-200">
-      <div className="flex flex-col justify-center w-[480px]">
+    <div className="flex flex-col flex-wrap items-center justify-center sm:w-[578px] mx-auto h-full max-xl:mb-12 max-sm:px-4 bg-dark text-textColors-200">
+      <div className="flex flex-col justify-center sm:w-[480px] w-full ">
         <nav className="flex justify-start gap-10 mb-9 text-lg">
           <Link
             className={`${pathname === "/sign-in" ? "after:block after:w-full after:h-1 after:rounded-full after:mt-1 after:bg-primary"
@@ -35,74 +76,100 @@ export const FormSignUp = () => {
           </Link>
         </nav>
 
-        <form className="flex flex-col gap-6 h-full">
+        <form className="flex flex-col gap-6 h-full" onSubmit={handleSubmit(handleRegisterForm)}>
           {/* Input Username */}
-          <div className="flex items-center w-full h-14 bg-transparent border border-white rounded-full pl-6 text-xl">
+          <div className="flex flex-col items-center w-full h-14 bg-transparent border border-white rounded-full pl-6 text-xl">
             <AiOutlineUser size={26} />
             <input
               type="text"
               id="username"
               placeholder="Username"
+              {...register("username")}
               className="w-11/12 bg-transparent border-none outline-none text-lg focus:ring-0 placeholder:text-textColors-200"
             />
+            {errors.username?.message && (
+              <span >
+                {errors.username?.message}
+              </span>
+            )}
           </div>
-          
-          {/* Input Email */}
-          <div className="flex items-center w-full h-14 bg-transparent border border-white rounded-full pl-6 text-xl">
-            <MdAlternateEmail size={26} />
-            <input
-              type="email"
-              id="email"
-              placeholder="Email"
-              className="w-11/12 bg-transparent border-none outline-none text-lg focus:ring-0 placeholder:text-textColors-200"
-            />
-          </div>
-          
-          {/* Input senha */}
-          <div className="flex items-center w-full h-14 bg-transparent border border-white rounded-full pl-6 text-xl">
-            <AiOutlineLock size={26} />
-            <input
-              type={`${showPassword ? "text" : "password"}`}
-              id="passwordId"
-              placeholder="Senha"
-              className="w-10/12 bg-transparent border-none outline-none pl-3 text-lg focus:ring-0 placeholder:text-textColors-200"
-            />
 
-            {showPassword ?
-              <AiOutlineEyeInvisible
-                onClick={() => setShowPassoword(!showPassword)}
-                className="cursor-pointer"
-                size={26} />
-              :
-              <AiOutlineEye
-                onClick={() => setShowPassoword(!showPassword)}
-                className="cursor-pointer"
-                size={26} />
-            }
+          {/* Input Email */}
+          <div>
+            <div className="flex items-center w-full h-14 bg-transparent border border-white rounded-full pl-6 text-xl">
+              <MdAlternateEmail size={26} />
+              <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                {...register("email")}
+                className="w-11/12 bg-transparent border-none outline-none text-lg focus:ring-0 placeholder:text-textColors-200"
+              />
+            </div>
+
+            {errors.email?.message && (
+              <span>
+                {errors.email?.message}
+              </span>
+            )}
           </div>
-          
+
+          {/* Input senha */}
+          <div className="flex flex-col w-full h-full bg-transparent border border-white rounded-full pl-6 text-xl">
+            <div className="flex items-center">
+
+              <AiOutlineLock size={26} />
+              <input
+                type={`${showPassword ? "current-password" : "password"}`}
+                placeholder="Senha"
+                {...register("password")}
+                className="w-10/12 bg-transparent border-none outline-none pl-3 text-lg focus:ring-0 placeholder:text-textColors-200"
+              />
+
+              {showPassword ?
+                <AiOutlineEye
+                  onClick={() => setShowPassowordConfirm(!showPasswordConfirm)}
+                  className="cursor-pointer"
+                  size={26} />
+                :
+                <AiOutlineEyeInvisible
+                  onClick={() => setShowPassoword(!showPassword)}
+                  className="cursor-pointer"
+                  size={26} />
+              }
+            </div>
+
+            {errors.confirmPassword?.message && (
+              <span>
+                {errors.confirmPassword?.message}
+              </span>
+            )}
+          </div>
+
           {/* Input confirma senha */}
           <div className="flex items-center w-full h-14 bg-transparent border border-white rounded-full pl-6 text-xl">
             <AiOutlineLock size={26} />
+
             <input
-              type={`${showPassword ? "text" : "password"}`}
-              id="passwordId"
+              type={`${showPasswordConfirm ? "current-password" : "password"}`}
               placeholder="Confirma Senha"
+              {...register("confirmPassword")}
               className="w-10/12 bg-transparent border-none outline-none pl-3 text-lg focus:ring-0 placeholder:text-textColors-200"
             />
 
-            {showPassword ?
-              <AiOutlineEyeInvisible
-                onClick={() => setShowPassoword(!showPassword)}
+            {showPasswordConfirm ?
+              <AiOutlineEye
+                onClick={() => setShowPassowordConfirm(!showPasswordConfirm)}
                 className="cursor-pointer"
                 size={26} />
               :
-              <AiOutlineEye
-                onClick={() => setShowPassoword(!showPassword)}
+              <AiOutlineEyeInvisible
+                onClick={() => setShowPassowordConfirm(!showPasswordConfirm)}
                 className="cursor-pointer"
                 size={26} />
             }
           </div>
+
 
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
@@ -115,9 +182,10 @@ export const FormSignUp = () => {
 
             <button
               type="submit"
+              disabled={isSubmitting}
               className="bg-primary px-14 py-[10px] rounded-full text-primary-text text-xl font-medium hover:bg-white hover:text-primary"
             >
-              Registrar
+              {isSubmitting ? "..." : "Register"}
             </button>
           </div>
         </form>
@@ -132,7 +200,7 @@ export const FormSignUp = () => {
       </span>
 
 
-      <div className="flex flex-row gap-5 w-[97%] h-auto mt-6">
+      <div className="flex flex-col sm:flex-row gap-5 w-[97%] h-auto mt-6">
         <button className="flex items-center justify-center gap-3 w-full py-[14px] rounded-full bg-[#1540CB]">
           <FacebookIcon />
           Login com Facebook
@@ -143,6 +211,6 @@ export const FormSignUp = () => {
           Login com Google
         </button>
       </div>
-    </section>
+    </div>
   );
 };
