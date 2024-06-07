@@ -1,22 +1,48 @@
 "use client"
+"use client"
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLock } from "react-icons/ai";
-import { MdAlternateEmail } from "react-icons/md";
+import { AiOutlineUser } from "react-icons/ai";
+import { MdAlternateEmail, } from "react-icons/md";
 
-import { FacebookIcon } from "@/components/icons/facebook-icon"
-import { GoogleIcon } from "@/components/icons/google-icon"
+import { FormProvider, useForm } from "react-hook-form"
+import { z } from "zod"
+import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { ErrorMessager } from "./ErrorMessager";
+import { InputPasswords } from "./InputPasswords";
+import { AuthInput } from "./AuthInput";
 
+
+
+const schemaLogin = z.object({
+  email: z.string().email("Email invalido!"),
+  password: z.string().min(5, "Senha curta demais!"),
+})
+
+type PropsForm = z.infer<typeof schemaLogin>
 
 export const FormSignIn = () => {
   const pathname = usePathname()
-  const [showPassword, setShowPassoword] = useState(false)
+
+  const methods = useForm({
+    resolver: zodResolver(schemaLogin),
+    defaultValues: {
+      email: "",
+      password: "",
+    }
+  })
+
+  const handleLoginForm = async (data: PropsForm) => {
+    const { email, password } = data
+
+    console.log(email, password)
+  }
 
   return (
-    <section className="w-full h-full flex flex-col items-center justify-center mt-85 px-[358px] bg-dark text-textColors-200">
-      <div className="flex flex-col justify-center w-[480px]">
+    <section className="flex flex-col flex-wrap items-center justify-center sm:w-[578px] mx-auto h-full max-xl:mb-12 max-sm:px-4 bg-dark text-textColors-200">
+      <div className="flex flex-col justify-center sm:w-[480px] w-full ">
         <nav className="flex justify-start gap-10 mb-9 text-lg">
           <Link
             className={`${pathname === "/sign-in" ? "after:block after:w-full after:h-1 after:rounded-full after:mt-1 after:bg-primary"
@@ -35,60 +61,47 @@ export const FormSignIn = () => {
           </Link>
         </nav>
 
-        <form className="flex flex-col gap-6 h-full">
-          {/* Input Email */}
-          <div className="flex items-center w-full h-14 bg-transparent border border-white rounded-full pl-6 text-xl">
-            <MdAlternateEmail size={26} />
-            <input
-              type="email"
-              id="email"
-              placeholder="Email"
-              className="w-11/12 bg-transparent border-none outline-none text-lg focus:ring-0 autofill:bg-transparent placeholder:text-textColors-200"
-            />
-          </div>
+        <FormProvider {...methods}>
+          <form className="flex flex-col gap-6 h-full" onSubmit={methods.handleSubmit(handleLoginForm)}>
 
-          {/* input Senha */}
-          <div className="flex items-center w-full h-14 bg-transparent border border-white rounded-full pl-6 text-xl">
-            <AiOutlineLock size={26} />
-            <input
-              type={`${showPassword ? "text" : "password"}`}
-              id="passwordId"
-              placeholder="Senha"
-              className="w-10/12 bg-transparent border-none outline-none pl-3 text-lg focus:ring-0 placeholder:text-textColors-200"
-            />
-
-            {showPassword ?
-              <AiOutlineEyeInvisible
-                onClick={() => setShowPassoword(!showPassword)}
-                className="cursor-pointer"
-                size={26} />
-              :
-              <AiOutlineEye
-                onClick={() => setShowPassoword(!showPassword)}
-                className="cursor-pointer"
-                size={26} />
-            }
-          </div>
-
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-4">
-              <input type="checkbox"
-                id="checkbox"
-                className="ml-3 w-5 h-5 rounded-md border-1 border-white bg-transparent checked:text-primary focus:ring-0 focus:ring-offset-0 cursor-pointer"
-              />
-              <label htmlFor="checkbox">Lembrar de mim</label>
+            <div className="flex flex-col">
+              <div className="flex items-center w-full h-12 bg-transparent border border-white rounded-full pl-6 text-xl">
+                <MdAlternateEmail size={26} />
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  {...methods.register("email")}
+                  className="w-11/12 bg-transparent border-none outline-none text-lg focus:ring-0 placeholder:text-textColors-200"
+                />
+              </div>
+              {methods.formState.errors.email?.message && (
+                <ErrorMessager messageError={methods.formState.errors.email.message} />
+              )}
             </div>
 
-            <button
-              type="submit"
-              className="bg-primary px-14 py-[10px] rounded-full text-primary-text text-xl font-medium hover:bg-white hover:text-primary"
-            >
-              Login
-            </button>
-          </div>
-        </form>
+            <InputPasswords />
 
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-4">
+                <input
+                  type="checkbox"
+                  id="checkbox"
+                  className="ml-3 w-5 h-5 rounded-md border-1 border-white bg-transparent checked:text-primary focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                />
+                <label htmlFor="checkbox">Lembrar de mim</label>
+              </div>
 
+              <button
+                type="submit"
+                disabled={methods.formState.isSubmitting}
+                className="bg-primary px-12 py-[10px] rounded-full text-primary-text text-xl font-medium hover:bg-white hover:text-primary"
+              >
+                {methods.formState.isSubmitting ? "..." : "Register"}
+              </button>
+            </div>
+          </form>
+        </FormProvider>
       </div>
 
       <span className="flex flex-row items-center gap-5 w-full
@@ -97,18 +110,7 @@ export const FormSignIn = () => {
         Ou
       </span>
 
-
-      <div className="flex flex-row gap-5 w-[97%] h-auto mt-6">
-        <button className="flex items-center justify-center gap-3 w-full py-[14px] rounded-full bg-[#1540CB]">
-          <FacebookIcon />
-          Login com Facebook
-        </button>
-
-        <button className="flex items-center justify-center gap-3 w-full py-[14px] rounded-full bg-[#DC5037]">
-          <GoogleIcon />
-          Login com Google
-        </button>
-      </div>
+      <AuthInput />
     </section>
-  )
-}
+  );
+};

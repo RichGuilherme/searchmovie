@@ -17,21 +17,22 @@ export default function SignIn() {
         </Link>
       </header>
 
-      <main className="w-full h-[calc(100vh-56px)] bg-backgroundRegister font-OpenSans">
-        <section className="relative w-full h-full flex flex-row justify-between items-start overflow-hidden">
-          <div className="h-full pl-32 relative bg-cover bg-center">
-            <div className="h-full flex flex-col justify-center items-center gap-8 text-white">
+      <main className="w-full h-full bg-backgroundRegister font-OpenSans">
+        <div className="w-full min-h-[calc(100vh-56px)] flex flex-col items-center xl:flex-row max-xl:pt-8 max-xl:gap-16 overflow-hidden">
+          <section className="h-full sm:w-[480px] max-sm:px-3 pl-0 xl:pl-32 bg-cover bg-center">
+            <div className="h-full flex flex-col justify-center items-center gap-3 xl:gap-8 text-white">
               <h1 className=" mb-7 text-6xl font-bold">
                 FilmesLand
               </h1>
+              
               <p className="max-w-[720px] text-3xl font-medium text-center leading-normal">
                 Encontre o filme ou série que você tanto procura e descubra outras opções similares
               </p>
             </div>
-          </div>
+          </section>
 
           <FormSignIn />
-        </section>
+        </div>
       </main>
     </>
   )
