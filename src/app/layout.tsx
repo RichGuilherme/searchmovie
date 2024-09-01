@@ -1,4 +1,5 @@
 import './globals.css'
+import { NextAuthProvider } from './provider'
 
 export const metadata = {
   title: 'Search Movie',
@@ -11,9 +12,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+
     <html lang="en">
-      <body >
+      <body>
+        <NextAuthProvider>
           {children}
+        </NextAuthProvider>
       </body>
     </html>
   )

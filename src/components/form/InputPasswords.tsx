@@ -3,9 +3,9 @@ import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLock } from 'react-icons/
 import { ErrorMessager } from './ErrorMessager'
 import { useFormContext } from 'react-hook-form'
 
-type InputPasswordsProps = {onConfirmPassword?: boolean}
+type InputPasswordsProps = { onConfirmPassword?: boolean }
 
-export const InputPasswords = ({onConfirmPassword}: InputPasswordsProps) => {
+export const InputPasswords = ({ onConfirmPassword }: InputPasswordsProps) => {
     const { register, formState: { errors } } = useFormContext()
     const [showPassword, setShowPassoword] = useState(false)
     const [showPasswordConfirm, setShowPassowordConfirm] = useState(false)
@@ -16,7 +16,8 @@ export const InputPasswords = ({onConfirmPassword}: InputPasswordsProps) => {
                 <div className="flex items-center w-full h-12 bg-transparent border border-white rounded-full pl-6 text-xl">
                     <AiOutlineLock size={26} />
                     <input
-                        type={`${showPassword ? "current-password" : "password"}`}
+                        type={`${showPassword ? "text" : "password"}`}
+                        autoComplete="new-password"
                         placeholder="Senha"
                         {...register("password")}
                         className="w-10/12 bg-transparent border-none outline-none pl-3 text-lg focus:ring-0 placeholder:text-textColors-200"
@@ -47,7 +48,8 @@ export const InputPasswords = ({onConfirmPassword}: InputPasswordsProps) => {
                         <AiOutlineLock size={26} />
 
                         <input
-                            type={`${showPasswordConfirm ? "current-password" : "password"}`}
+                            type={`${showPasswordConfirm ? "text" : "password"}`}
+                            autoComplete="new-password"
                             placeholder="Confirma Senha"
                             {...register("confirmPassword")}
                             className="w-10/12 bg-transparent border-none outline-none pl-3 text-lg focus:ring-0 placeholder:text-textColors-200"

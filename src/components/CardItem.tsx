@@ -9,7 +9,7 @@ import { DataResults } from "@/@types/apiInformation"
 
 export const CardItem = ({ dataResults, loading, mediaType}: DataResults) => {
     const router = useRouter()
-
+    console.log(dataResults)
     return (
         <>
             {!loading ? (

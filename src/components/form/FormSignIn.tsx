@@ -69,6 +69,7 @@ export const FormSignIn = () => {
                 <MdAlternateEmail size={26} />
                 <input
                   type="email"
+                  autoComplete="username"
                   id="email"
                   placeholder="Email"
                   {...methods.register("email")}

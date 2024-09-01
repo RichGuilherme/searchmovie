@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { ErrorMessager } from "./ErrorMessager";
 import { InputPasswords } from "./InputPasswords";
 import { AuthInput } from "./AuthInput";
+import { FormEvent } from "react";
 
 
 
@@ -40,7 +41,9 @@ export const FormSignUp = () => {
     }
   })
 
-  const handleRegisterForm = async (data: PropsForm) => {
+  const handleRegisterForm = async (data: PropsForm, e: any) => {
+    e.eventDefault()
+
     const { email, password, username } = data
 
     console.log(email, password, username)
@@ -75,26 +78,31 @@ export const FormSignUp = () => {
                 <input
                   type="text"
                   id="username"
+                  autoComplete="username"
                   placeholder="Username"
                   {...methods.register("username")}
                   className="w-11/12 bg-transparent border-none outline-none text-lg focus:ring-0 placeholder:text-textColors-200"
                 />
               </div>
+
               {methods.formState.errors.username?.message && (
                 <ErrorMessager messageError={methods.formState.errors.username.message} />
               )}
             </div>
+
             <div className="flex flex-col">
               <div className="flex items-center w-full h-12 bg-transparent border border-white rounded-full pl-6 text-xl">
                 <MdAlternateEmail size={26} />
                 <input
                   type="email"
+                  autoComplete="username"
                   id="email"
                   placeholder="Email"
                   {...methods.register("email")}
                   className="w-11/12 bg-transparent border-none outline-none text-lg focus:ring-0 placeholder:text-textColors-200"
                 />
               </div>
+
               {methods.formState.errors.email?.message && (
                 <ErrorMessager messageError={methods.formState.errors.email.message} />
               )}
