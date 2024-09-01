@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useAxios } from "@/hooks/useAxios";
-import { SwitchTab } from "../SwitchTab";
-import { Carousel } from "../Carousel";
+import { SwitchTab } from "../../SwitchTab";
+import { Carousel } from "../../Carousel";
 import axiosInstancia from "@/data/service/axios";
 
 

@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { AllMoviesAndSeries } from "../AllMoviesAndSeries"
-import { SideBarFilter } from "../SideBarFilter"
+import { AllMoviesAndSeries } from "./AllMoviesAndSeries"
+import { SideBarFilter } from "./SideBarFilter"
 import { AllMediaTypeProps } from "@/@types/apiInformation"
 
 

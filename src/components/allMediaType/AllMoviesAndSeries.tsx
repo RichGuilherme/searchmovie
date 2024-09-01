@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { AiFillStar, AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 
-import { CarouselLoading } from "./CarouselLoading";
+import { CarouselLoading } from "../CarouselLoading";
 import { useDataAllMediaType } from "@/hooks/useDataAllMediaType";
 import { AllMoviesAndSeriesProps } from "@/@types/apiInformation";
 
